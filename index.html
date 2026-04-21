@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-palette="classic">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auto Loan Practice Tracker</title>
+  <title>Auto Loan Practice</title>
   <style>
-    /* ── DESIGN TOKENS ─────────────────────────────────────────── */
-    :root {
+    /* ── THEME TOKENS ─────────────────────────────────────────────────────── */
+
+    /* CLASSIC (default) - warm, serif feel */
+    :root,
+    [data-palette="classic"][data-theme="light"] {
       --bg:          #f5f4f0;
       --surface:     #ffffff;
       --surface-alt: #f0efe9;
@@ -14,67 +17,135 @@
       --text:        #1a1917;
       --text-muted:  #6b6860;
       --accent:      #1a5c96;
-      --accent-2:    #d4500a;
+      --accent-2:    #c74500;
       --correct:     #1a6e3b;
-      --correct-bg:  #e6f4ec;
+      --correct-bg:  #e4f4ec;
       --wrong:       #a31b1b;
       --wrong-bg:    #fdeaea;
       --btn-text:    #ffffff;
-      --shadow:      0 2px 8px rgba(0,0,0,0.08);
-      --radius:      6px;
-      --font-body:   'Georgia', serif;
-      --font-mono:   'Courier New', monospace;
-      --font-ui:     system-ui, sans-serif;
+      --group-row:   #eef3f8;
+      --shadow:      0 2px 10px rgba(0,0,0,0.07);
     }
-    [data-theme="dark"] {
+    [data-palette="classic"][data-theme="dark"] {
       --bg:          #141414;
       --surface:     #1f1f1f;
-      --surface-alt: #272727;
-      --border:      #363636;
+      --surface-alt: #282828;
+      --border:      #373737;
       --text:        #e8e6e0;
       --text-muted:  #8a8880;
       --accent:      #5b9bd5;
       --accent-2:    #e8784a;
-      --correct:     #5dba7d;
-      --correct-bg:  #0d2b1a;
+      --correct:     #55ba78;
+      --correct-bg:  #0c2b1a;
       --wrong:       #e06060;
-      --wrong-bg:    #2b0d0d;
-      --shadow:      0 2px 12px rgba(0,0,0,0.4);
+      --wrong-bg:    #2a0d0d;
+      --btn-text:    #ffffff;
+      --group-row:   #1a2535;
+      --shadow:      0 2px 14px rgba(0,0,0,0.35);
     }
 
-    /* ── RESET & BASE ──────────────────────────────────────────── */
+    /* NAVY PRO - deep professional */
+    [data-palette="navy"][data-theme="light"] {
+      --bg:          #eef2f7;
+      --surface:     #ffffff;
+      --surface-alt: #e2e9f3;
+      --border:      #c0cedd;
+      --text:        #0b1829;
+      --text-muted:  #4e6a8a;
+      --accent:      #0c2b56;
+      --accent-2:    #c24a00;
+      --correct:     #0a5c2c;
+      --correct-bg:  #d5f0e2;
+      --wrong:       #961414;
+      --wrong-bg:    #fce8e8;
+      --btn-text:    #ffffff;
+      --group-row:   #d6e4f4;
+      --shadow:      0 2px 10px rgba(12,43,86,0.10);
+    }
+    [data-palette="navy"][data-theme="dark"] {
+      --bg:          #040c1a;
+      --surface:     #0c1e34;
+      --surface-alt: #122540;
+      --border:      #1a3050;
+      --text:        #cddcf0;
+      --text-muted:  #5e88b8;
+      --accent:      #5aa4f8;
+      --accent-2:    #f97a38;
+      --correct:     #30cf90;
+      --correct-bg:  #041f14;
+      --wrong:       #f07070;
+      --wrong-bg:    #1e0606;
+      --btn-text:    #040c1a;
+      --group-row:   #08162a;
+      --shadow:      0 2px 14px rgba(0,0,0,0.45);
+    }
+
+    /* FOREST SCHOLAR - rich deep green */
+    [data-palette="forest"][data-theme="light"] {
+      --bg:          #eff4ee;
+      --surface:     #ffffff;
+      --surface-alt: #e2ede0;
+      --border:      #baced8;
+      --text:        #0e1e0e;
+      --text-muted:  #437240;
+      --accent:      #185c30;
+      --accent-2:    #8a5c00;
+      --correct:     #135a28;
+      --correct-bg:  #d5f0dc;
+      --wrong:       #8a1414;
+      --wrong-bg:    #fce8e8;
+      --btn-text:    #ffffff;
+      --group-row:   #d8ecda;
+      --shadow:      0 2px 10px rgba(24,92,48,0.08);
+    }
+    [data-palette="forest"][data-theme="dark"] {
+      --bg:          #060e07;
+      --surface:     #0d1c0e;
+      --surface-alt: #132515;
+      --border:      #1c3620;
+      --text:        #c0e8c0;
+      --text-muted:  #5a9e58;
+      --accent:      #44d870;
+      --accent-2:    #f8c030;
+      --correct:     #44d870;
+      --correct-bg:  #041c08;
+      --wrong:       #f07070;
+      --wrong-bg:    #1a0505;
+      --btn-text:    #060e07;
+      --group-row:   #0a1a0c;
+      --shadow:      0 2px 14px rgba(0,0,0,0.45);
+    }
+
+    /* ── BASE ─────────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-body);
+      font-family: 'Georgia', serif;
+      font-size: 16px; /* 12pt minimum */
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.22s, color 0.22s;
       line-height: 1.6;
     }
 
-    /* ── LAYOUT ────────────────────────────────────────────────── */
-    #app { max-width: 960px; margin: 0 auto; padding: 24px 20px 60px; }
+    #app { width: 100%; padding: 24px 48px 64px; }
 
-    /* ── HEADER ────────────────────────────────────────────────── */
+    /* ── HEADER ───────────────────────────────────────────────────────────── */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
       padding-bottom: 16px;
       border-bottom: 2px solid var(--border);
     }
-    .header-title {
-      display: flex;
-      flex-direction: column;
-    }
+    .header-title { display: flex; flex-direction: column; }
     .header-eyebrow {
-      font-family: var(--font-ui);
+      font-family: system-ui, sans-serif;
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
     }
@@ -84,46 +155,52 @@
       color: var(--text);
       letter-spacing: -0.01em;
     }
-    #theme-toggle {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 7px 14px;
-      font-family: var(--font-ui);
+    .header-controls { display: flex; align-items: center; gap: 10px; }
+    .ctrl-btn, .ctrl-select {
+      font-family: system-ui, sans-serif;
       font-size: 13px;
+      padding: 7px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-alt);
       color: var(--text);
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.18s;
+      appearance: none;
+      -webkit-appearance: none;
     }
-    #theme-toggle:hover { background: var(--border); }
+    .ctrl-select { padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+    .ctrl-btn:hover, .ctrl-select:hover { background: var(--border); }
 
-    /* ── VIEWS ─────────────────────────────────────────────────── */
+    /* ── VIEWS ────────────────────────────────────────────────────────────── */
     .view { display: none; }
     .view.active { display: block; }
 
-    /* ── CARDS ─────────────────────────────────────────────────── */
+    /* ── CARDS ────────────────────────────────────────────────────────────── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 8px;
       padding: 28px 32px;
       box-shadow: var(--shadow);
       margin-bottom: 28px;
+      transition: background 0.22s, border-color 0.22s;
     }
     .card h2 {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       margin-bottom: 20px;
       color: var(--text);
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
     .car-badge {
-      font-family: var(--font-ui);
+      font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       background: var(--accent);
       color: white;
@@ -131,333 +208,355 @@
       border-radius: 3px;
     }
 
-    /* ── FORMS ─────────────────────────────────────────────────── */
+    /* ── FORMS ────────────────────────────────────────────────────────────── */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
-    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
     .field label {
-      font-family: var(--font-ui);
+      font-family: system-ui, sans-serif;
       font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-weight: 700;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--text-muted);
     }
     .field input {
-      font-family: var(--font-ui);
-      font-size: 15px;
-      padding: 10px 12px;
+      font-family: system-ui, sans-serif;
+      font-size: 16px;
+      padding: 10px 13px;
       border: 1.5px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 6px;
       background: var(--bg);
       color: var(--text);
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.22s;
       width: 100%;
     }
-    .field input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(26,92,150,0.15);
-    }
-    [data-theme="dark"] .field input:focus {
-      box-shadow: 0 0 0 3px rgba(91,155,213,0.2);
-    }
+    .field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
 
-    /* ── BUTTONS ───────────────────────────────────────────────── */
+    /* ── BUTTONS ──────────────────────────────────────────────────────────── */
     .btn {
-      font-family: var(--font-ui);
-      font-size: 14px;
+      font-family: system-ui, sans-serif;
+      font-size: 15px;
       font-weight: 600;
       padding: 10px 22px;
       border: none;
-      border-radius: var(--radius);
+      border-radius: 6px;
       cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s, background 0.15s;
-      letter-spacing: 0.02em;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
     }
-    .btn:active:not(:disabled) { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.42; cursor: not-allowed; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--btn-text);
-    }
-    .btn-primary:hover:not(:disabled) { opacity: 0.88; }
-
+    .btn:active:not(:disabled) { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.36; cursor: not-allowed; }
+    .btn-primary  { background: var(--accent);    color: var(--btn-text); }
+    .btn-primary:hover:not(:disabled)  { opacity: 0.87; }
     .btn-validate {
       background: var(--surface-alt);
       color: var(--text);
       border: 1.5px solid var(--border);
-      margin-top: 14px;
+      margin-top: 16px;
+      font-size: 14px;
     }
     .btn-validate:hover:not(:disabled) { background: var(--border); }
-
     .btn-submit {
       background: var(--accent-2);
       color: var(--btn-text);
-      font-size: 15px;
-      padding: 13px 32px;
+      font-size: 16px;
+      padding: 13px 44px;
     }
-    .btn-submit:hover:not(:disabled) { opacity: 0.88; }
+    .btn-submit:hover:not(:disabled) { opacity: 0.87; }
 
-    /* ── TABLE ─────────────────────────────────────────────────── */
-    .table-wrap { overflow-x: auto; margin-bottom: 12px; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
+    /* ── TABLE ────────────────────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
     thead th {
-      font-family: var(--font-ui);
+      font-family: system-ui, sans-serif;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--text-muted);
       padding: 10px 12px;
       text-align: left;
       border-bottom: 2px solid var(--border);
       background: var(--surface-alt);
+      white-space: nowrap;
     }
     tbody tr { border-bottom: 1px solid var(--border); }
     tbody tr:last-child { border-bottom: none; }
-    tbody td {
-      padding: 10px 12px;
-      vertical-align: middle;
-    }
-
-    /* fixed-data cells */
-    .td-data {
-      font-family: var(--font-mono);
-      font-size: 13px;
+    tbody td { padding: 9px 12px; vertical-align: middle; }
+    .td-mono {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
       color: var(--text-muted);
     }
-    .td-offer { font-weight: 700; color: var(--accent); }
+    .td-lender {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      min-width: 170px;
+    }
+    /* Term group separator */
+    tr.group-row td {
+      background: var(--group-row);
+      font-family: system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 7px 12px;
+    }
 
-    /* student input cells */
+    /* ── STUDENT INPUTS ───────────────────────────────────────────────────── */
     .student-input {
-      width: 120px;
-      font-family: var(--font-mono);
-      font-size: 13px;
+      width: 112px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
       padding: 7px 9px;
       border: 1.5px solid var(--border);
-      border-radius: 4px;
+      border-radius: 5px;
       background: var(--bg);
       color: var(--text);
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.15s, background 0.2s;
       display: block;
     }
-    .student-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(26,92,150,0.12);
-    }
-
-    /* feedback states */
-    .student-input.correct {
-      border-color: var(--correct);
-      background: var(--correct-bg);
-    }
-    .student-input.wrong {
-      border-color: var(--wrong);
-      background: var(--wrong-bg);
-    }
+    .student-input:focus { outline: none; border-color: var(--accent); }
+    .student-input.correct { border-color: var(--correct); background: var(--correct-bg); }
+    .student-input.wrong   { border-color: var(--wrong);   background: var(--wrong-bg);   }
     .answer-hint {
-      font-family: var(--font-mono);
-      font-size: 11px;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
       color: var(--wrong);
       margin-top: 3px;
-      display: block;
+      display: none;
     }
 
-    /* ── SCORE BAR ─────────────────────────────────────────────── */
-    .score-bar {
+    /* ── PROGRESS BAR ─────────────────────────────────────────────────────── */
+    .progress-bar {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      background: var(--surface-alt);
+      gap: 14px;
+      padding: 16px 24px;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 8px;
       margin-bottom: 24px;
+      box-shadow: var(--shadow);
     }
-    .score-label {
-      font-family: var(--font-ui);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
+    .progress-label {
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      min-width: 76px;
     }
-    .score-value {
-      font-family: var(--font-mono);
-      font-size: 24px;
+    .progress-value {
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
       font-weight: 700;
       color: var(--accent);
     }
-    .score-total {
-      font-family: var(--font-mono);
-      font-size: 16px;
+    .progress-pct {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
       color: var(--text-muted);
     }
-    .score-track {
+    .progress-track {
       flex: 1;
-      height: 8px;
+      height: 10px;
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 5px;
       overflow: hidden;
     }
-    .score-fill {
+    .progress-fill {
       height: 100%;
       background: var(--accent);
-      border-radius: 4px;
+      border-radius: 5px;
       transition: width 0.4s ease;
       width: 0%;
     }
 
-    /* ── VALIDATION STATUS ─────────────────────────────────────── */
+    /* ── SECTION STATUS BADGE ─────────────────────────────────────────────── */
     .section-status {
-      font-family: var(--font-ui);
+      font-family: system-ui, sans-serif;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 5px;
       padding: 4px 10px;
-      border-radius: 3px;
+      border-radius: 4px;
       margin-left: auto;
     }
-    .section-status.validated {
-      background: var(--correct-bg);
-      color: var(--correct);
-    }
-    .section-status.invalidated {
-      background: var(--wrong-bg);
-      color: var(--wrong);
-    }
+    .section-status.validated  { background: var(--correct-bg); color: var(--correct); }
+    .section-status.needs-work { background: var(--wrong-bg);   color: var(--wrong);   }
+    .section-status.stale      { background: var(--surface-alt);color: var(--text-muted); }
 
-    /* ── SUBMIT AREA ───────────────────────────────────────────── */
-    .submit-area {
-      text-align: center;
-      padding: 24px;
-      border-top: 2px solid var(--border);
-      margin-top: 8px;
-    }
+    /* ── SUBMIT AREA ──────────────────────────────────────────────────────── */
+    .submit-area { text-align: center; padding: 28px; border-top: 2px solid var(--border); }
     .submit-note {
-      font-family: var(--font-ui);
-      font-size: 12px;
+      font-family: system-ui, sans-serif;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 10px;
     }
-
-    /* ── ALERTS ────────────────────────────────────────────────── */
     .alert {
-      font-family: var(--font-ui);
-      font-size: 13px;
-      padding: 10px 14px;
-      border-radius: var(--radius);
-      margin-top: 12px;
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      margin-top: 14px;
+      display: inline-block;
     }
-    .alert-error {
-      background: var(--wrong-bg);
-      color: var(--wrong);
-      border: 1px solid var(--wrong);
-    }
-    .alert-info {
-      background: var(--correct-bg);
-      color: var(--correct);
-      border: 1px solid var(--correct);
-    }
+    .alert-error { background: var(--wrong-bg); color: var(--wrong); border: 1px solid var(--wrong); }
 
-    /* ── SUCCESS VIEW ──────────────────────────────────────────── */
-    .success-card {
-      text-align: center;
-      padding: 56px 32px;
-    }
-    .success-icon {
-      font-size: 56px;
-      margin-bottom: 20px;
-    }
-    .success-card h2 {
-      font-size: 26px;
-      margin-bottom: 8px;
-    }
-    .success-card p {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-    .final-score-big {
-      font-family: var(--font-mono);
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 20px 0 8px;
-    }
-
-    /* ── SETUP VIEW ────────────────────────────────────────────── */
+    /* ── SETUP ────────────────────────────────────────────────────────────── */
     .setup-intro {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text-muted);
       margin-bottom: 24px;
+      padding-left: 16px;
       border-left: 3px solid var(--accent);
-      padding-left: 14px;
     }
+    .setup-intro a { color: var(--accent); font-weight: 600; }
     .setup-divider {
-      font-family: var(--font-ui);
-      font-size: 11px;
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin: 20px 0 14px;
+      color: var(--accent);
+      margin: 22px 0 14px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border);
     }
 
-    /* ── INSTRUCTIONS BOX ──────────────────────────────────────── */
+    /* ── INSTRUCTIONS BANNER ──────────────────────────────────────────────── */
     .instructions {
       background: var(--surface-alt);
       border: 1px solid var(--border);
       border-left: 3px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 14px 18px;
+      border-radius: 8px;
+      padding: 14px 20px;
       margin-bottom: 24px;
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-muted);
     }
-    .instructions strong { color: var(--text); }
+    .instructions a { color: var(--accent); font-weight: 700; }
 
+    /* ── SUCCESS VIEW ─────────────────────────────────────────────────────── */
+    .success-hero {
+      text-align: center;
+      padding: 40px 32px 24px;
+    }
+    .success-icon { font-size: 52px; margin-bottom: 14px; }
+    .success-hero h2 {
+      font-size: 28px;
+      margin-bottom: 4px;
+      justify-content: center;
+    }
+    .final-score-big {
+      font-family: 'Courier New', monospace;
+      font-size: 54px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 14px 0 4px;
+    }
+    .success-sub { font-size: 16px; color: var(--text-muted); }
+
+    /* Success sortable tables */
+    .success-tables {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+    .success-table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .success-table-title {
+      font-family: system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 13px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+    .sortable-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .sortable-table th {
+      font-family: system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 9px 10px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+      background: var(--surface-alt);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .sortable-table th:hover { color: var(--accent); }
+    .sortable-table th.sort-asc::after  { content: ' ↑'; color: var(--accent); }
+    .sortable-table th.sort-desc::after { content: ' ↓'; color: var(--accent); }
+    .sortable-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .sortable-table td.td-name {
+      font-family: system-ui, sans-serif;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .sortable-table tr:last-child td { border-bottom: none; }
   </style>
 </head>
 <body>
 <div id="app">
+
   <header>
     <div class="header-title">
-      <span class="header-eyebrow">Personal Finance · CTE</span>
-      <h1>Auto Loan Practice Tracker</h1>
+      <span class="header-eyebrow">Personal Finance | Weaver</span>
+      <h1>Auto Loan Practice</h1>
     </div>
-    <button id="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+    <div class="header-controls">
+      <select class="ctrl-select" onchange="setPalette(this.value)" title="Color Theme">
+        <option value="classic">Theme: Classic</option>
+        <option value="navy">Theme: Navy</option>
+        <option value="forest">Theme: Forest</option>
+      </select>
+      <button id="dark-toggle" class="ctrl-btn" onclick="toggleDark()">🌙 Dark</button>
+    </div>
   </header>
 
-  <!-- ── SETUP VIEW ── -->
+  <!-- ══ SETUP VIEW ══════════════════════════════════════════════════════════ -->
   <div id="view-setup" class="view active">
     <div class="card">
-      <h2>Student Setup</h2>
+      <h2>Student Info</h2>
       <p class="setup-intro">
-        You will be given two car loan scenarios. Use the external calculator your teacher provides
-        to find the <strong>monthly payment</strong> and <strong>total interest paid</strong> for each loan offer,
-        then enter your answers below and validate each section.
+        Use the <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener">NGPF Amortization Calculator</a>
+        to find the monthly payment and total interest for each loan offer on the next page.
       </p>
-
       <form id="setup-form" onsubmit="handleSetupSubmit(event)">
         <div class="form-grid">
           <div class="field" style="grid-column:1/-1">
@@ -466,10 +565,10 @@
           </div>
         </div>
 
-        <div class="setup-divider">Car 1</div>
+        <div class="setup-divider">Young Pro Car</div>
         <div class="form-grid">
           <div class="field">
-            <label for="car1Name">Car Name / Description</label>
+            <label for="car1Name">Year Make Model</label>
             <input type="text" id="car1Name" placeholder="e.g. 2022 Honda Civic" autocomplete="off" />
           </div>
           <div class="field">
@@ -478,20 +577,19 @@
           </div>
         </div>
 
-        <div class="setup-divider">Car 2</div>
+        <div class="setup-divider">Dream Car</div>
         <div class="form-grid">
           <div class="field">
-            <label for="car2Name">Car Name / Description</label>
-            <input type="text" id="car2Name" placeholder="e.g. 2021 Toyota Camry" autocomplete="off" />
+            <label for="car2Name">Year Make Model</label>
+            <input type="text" id="car2Name" placeholder="e.g. 2024 BMW 330i" autocomplete="off" />
           </div>
           <div class="field">
             <label for="car2Principal">Loan Principal ($)</label>
-            <input type="number" id="car2Principal" placeholder="e.g. 22000" min="1" step="0.01" />
+            <input type="number" id="car2Principal" placeholder="e.g. 45000" min="1" step="0.01" />
           </div>
         </div>
 
         <div id="setup-error" class="alert alert-error" style="display:none;"></div>
-
         <div style="margin-top:24px;">
           <button type="submit" class="btn btn-primary">Start Practice →</button>
         </div>
@@ -499,40 +597,39 @@
     </div>
   </div>
 
-  <!-- ── PRACTICE VIEW ── -->
+  <!-- ══ PRACTICE VIEW ═══════════════════════════════════════════════════════ -->
   <div id="view-practice" class="view">
 
     <div class="instructions">
-      <strong>Instructions:</strong> Use your teacher's amortization calculator. Enter the
-      <strong>Monthly Payment</strong> and <strong>Total Interest Paid</strong> for each offer.
-      Click <strong>Validate Section</strong> for each car when you're done with that car.
-      Both sections must be validated before you can submit.
+      Click <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener"><strong>THIS LINK</strong></a>
+      to use the NGPF Amortization Calculator. Enter the <strong>Monthly Payment</strong> and
+      <strong>Total Interest Paid</strong> for every offer below. Validate each car section,
+      then submit once all answers are correct.
     </div>
 
-    <!-- Score Bar -->
-    <div class="score-bar">
-      <span class="score-label">Score</span>
-      <span class="score-value" id="score-num">0</span>
-      <span class="score-total">/ 16</span>
-      <div class="score-track">
-        <div class="score-fill" id="score-fill"></div>
+    <div class="progress-bar">
+      <span class="progress-label">Progress</span>
+      <span class="progress-value" id="progress-num">0</span>
+      <span class="progress-pct" id="progress-pct">/ 36 &nbsp;(0%)</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
       </div>
     </div>
 
-    <!-- Car 1 Section -->
-    <div class="card" id="car1-card">
+    <!-- Car 1 -->
+    <div class="card">
       <h2>
         <span class="car-badge">Car 1</span>
         <span id="car1-header-name"></span>
         <span class="section-status" id="car1-status" style="display:none;"></span>
       </h2>
       <div class="table-wrap">
-        <table id="car1-table">
+        <table>
           <thead>
             <tr>
-              <th>Offer #</th>
+              <th>Offer</th>
               <th>Principal</th>
-              <th>Rate (APR)</th>
+              <th>APR</th>
               <th>Term</th>
               <th>Monthly Payment ($)</th>
               <th>Total Interest ($)</th>
@@ -541,25 +638,23 @@
           <tbody id="car1-tbody"></tbody>
         </table>
       </div>
-      <button class="btn btn-validate" id="btn-validate-car1" onclick="validateCarSection(0)">
-        ✓ Validate Car 1 Section
-      </button>
+      <button class="btn btn-validate" onclick="validateSection(0)">✓ Validate Car 1 Section</button>
     </div>
 
-    <!-- Car 2 Section -->
-    <div class="card" id="car2-card">
+    <!-- Car 2 -->
+    <div class="card">
       <h2>
         <span class="car-badge">Car 2</span>
         <span id="car2-header-name"></span>
         <span class="section-status" id="car2-status" style="display:none;"></span>
       </h2>
       <div class="table-wrap">
-        <table id="car2-table">
+        <table>
           <thead>
             <tr>
-              <th>Offer #</th>
+              <th>Offer</th>
               <th>Principal</th>
-              <th>Rate (APR)</th>
+              <th>APR</th>
               <th>Term</th>
               <th>Monthly Payment ($)</th>
               <th>Total Interest ($)</th>
@@ -568,443 +663,745 @@
           <tbody id="car2-tbody"></tbody>
         </table>
       </div>
-      <button class="btn btn-validate" id="btn-validate-car2" onclick="validateCarSection(1)">
-        ✓ Validate Car 2 Section
-      </button>
+      <button class="btn btn-validate" onclick="validateSection(1)">✓ Validate Car 2 Section</button>
     </div>
 
-    <!-- Submit Area -->
+    <!-- Submit -->
     <div class="submit-area">
       <button class="btn btn-submit" id="btn-submit" disabled onclick="submitResults()">
         Submit All Results
       </button>
-      <p class="submit-note" id="submit-note">
-        Both sections must be validated before submitting.
-      </p>
+      <p class="submit-note" id="submit-note">All 36 answers must be correct before submitting.</p>
       <div id="submit-alert" style="display:none;"></div>
     </div>
   </div>
 
-  <!-- ── SUCCESS VIEW ── -->
+  <!-- ══ SUCCESS VIEW ════════════════════════════════════════════════════════ -->
   <div id="view-success" class="view">
-    <div class="card success-card">
-      <div class="success-icon">🎉</div>
-      <h2>Submission Complete!</h2>
-      <p>Your answers have been sent to your teacher.</p>
-      <div class="final-score-big" id="success-score">—</div>
-      <p>out of 16 points</p>
-      <p id="success-name" style="margin-top:16px; font-style:italic;"></p>
-      <p style="margin-top:20px; font-size:13px; color:var(--text-muted);">
-        ⚠️ Note: Because this app uses a no-cors submission, a "sent" status means the request
-        was delivered — your teacher's sheet will confirm receipt.
-      </p>
+    <div class="card">
+      <div class="success-hero">
+        <div class="success-icon">🎉</div>
+        <h2>Submission Complete!</h2>
+        <div class="final-score-big" id="success-score">36</div>
+        <p class="success-sub" id="success-sub">out of 36 — 100%</p>
+      </div>
+      <div class="success-tables" id="success-tables"></div>
     </div>
   </div>
 
 </div><!-- /#app -->
 
 <script>
-  // ── CONSTANTS ────────────────────────────────────────────────────────────────
-  // TEACHER: Replace this URL with your deployed Google Apps Script Web App URL.
-  const APPS_SCRIPT_URL = "https://script.google.com/a/macros/greermiddlecollege.org/s/AKfycbx0FgENXzze0I6MzEGPTIOkzCjYF3LnTIzt8I5r3gxwqzyYxvdOQxj9f8dynH6Tkm4KVw/exec";
+// ── FORM SUBMISSION CONFIG ───────────────────────────────────────────────────
+// Submissions go to this Google Form endpoint (no-cors, urlencoded).
+const FORM_SUBMIT_URL = "https://docs.google.com/forms/d/e/1FAIpQLSebmgLxVP5ZKNgXLxSPy8sc0VlcT-Bbx6PoylMFb3F_tBe9FA/formResponse";
 
-  const AVAILABLE_RATES = [4.9, 6.4, 7.9, 9.9, 12.4, 14.9]; // APR options
-  const AVAILABLE_TERMS = [24, 36, 48, 60, 72];               // months
-  const OFFERS_PER_CAR  = 4;
-  const TOLERANCE       = 2.00;  // dollar tolerance for correct answers
-  const TOTAL_POSSIBLE  = 16;    // 2 cars × 4 offers × 2 fields
+// Entry IDs map to Google Form field IDs (generated by createForm.gs).
+// Each field is submitted as: entry.{ID}=value
+const FORM_ENTRY_IDS = {
+  "studentName":434795283,"timestamp":7435269,"finalScore":1495183095,
+  "car1Name":747218923,"car1Principal":1816003232,
+  "c1o1Lender":638931597,"c1o1Term":1102214972,"c1o1APR":390418203,
+  "c1o1CorrectPayment":1371524691,"c1o1CorrectInterest":1087720242,
+  "c1o1StudentPayment":1607048809,"c1o1StudentInterest":1411952982,
+  "c1o1PaymentCorrect":1026441884,"c1o1InterestCorrect":1057645468,
+  "c1o2Lender":276220389,"c1o2Term":1898517460,"c1o2APR":1280661083,
+  "c1o2CorrectPayment":1234231336,"c1o2CorrectInterest":1140783744,
+  "c1o2StudentPayment":75112235,"c1o2StudentInterest":1380760637,
+  "c1o2PaymentCorrect":776276192,"c1o2InterestCorrect":322791961,
+  "c1o3Lender":2114149120,"c1o3Term":177529236,"c1o3APR":256620522,
+  "c1o3CorrectPayment":1023615267,"c1o3CorrectInterest":1068747304,
+  "c1o3StudentPayment":677396425,"c1o3StudentInterest":2027214489,
+  "c1o3PaymentCorrect":620889167,"c1o3InterestCorrect":1913587521,
+  "c1o4Lender":327251488,"c1o4Term":1207589034,"c1o4APR":1930584515,
+  "c1o4CorrectPayment":121156596,"c1o4CorrectInterest":1383361269,
+  "c1o4StudentPayment":2015684194,"c1o4StudentInterest":231116853,
+  "c1o4PaymentCorrect":1869763840,"c1o4InterestCorrect":1793099117,
+  "c1o5Lender":721812232,"c1o5Term":1988508032,"c1o5APR":134589586,
+  "c1o5CorrectPayment":1719029995,"c1o5CorrectInterest":1320651213,
+  "c1o5StudentPayment":1224970780,"c1o5StudentInterest":1345520856,
+  "c1o5PaymentCorrect":380293084,"c1o5InterestCorrect":1741040447,
+  "c1o6Lender":2146159893,"c1o6Term":1377524431,"c1o6APR":228506538,
+  "c1o6CorrectPayment":26293715,"c1o6CorrectInterest":1663039977,
+  "c1o6StudentPayment":1572831292,"c1o6StudentInterest":1619613777,
+  "c1o6PaymentCorrect":815230638,"c1o6InterestCorrect":442734222,
+  "c1o7Lender":1618876356,"c1o7Term":2089731251,"c1o7APR":321427673,
+  "c1o7CorrectPayment":62733846,"c1o7CorrectInterest":1754889587,
+  "c1o7StudentPayment":623720393,"c1o7StudentInterest":2072834893,
+  "c1o7PaymentCorrect":1087536304,"c1o7InterestCorrect":665842944,
+  "c1o8Lender":492933444,"c1o8Term":123155789,"c1o8APR":1632049379,
+  "c1o8CorrectPayment":78460169,"c1o8CorrectInterest":1573143759,
+  "c1o8StudentPayment":1370102362,"c1o8StudentInterest":625400150,
+  "c1o8PaymentCorrect":735005165,"c1o8InterestCorrect":1237104496,
+  "c1o9Lender":1448575780,"c1o9Term":2054376130,"c1o9APR":1817545843,
+  "c1o9CorrectPayment":1769857417,"c1o9CorrectInterest":572179233,
+  "c1o9StudentPayment":1809897194,"c1o9StudentInterest":666534597,
+  "c1o9PaymentCorrect":91598753,"c1o9InterestCorrect":1811635710,
+  "car2Name":523144976,"car2Principal":153839411,
+  "c2o1Lender":640334056,"c2o1Term":2035942217,"c2o1APR":124339056,
+  "c2o1CorrectPayment":827977214,"c2o1CorrectInterest":1099457653,
+  "c2o1StudentPayment":1090054629,"c2o1StudentInterest":238838479,
+  "c2o1PaymentCorrect":368588286,"c2o1InterestCorrect":1888474763,
+  "c2o2Lender":1856537329,"c2o2Term":204439994,"c2o2APR":1916649959,
+  "c2o2CorrectPayment":1067363285,"c2o2CorrectInterest":1268434693,
+  "c2o2StudentPayment":1272285643,"c2o2StudentInterest":1176100009,
+  "c2o2PaymentCorrect":1482353524,"c2o2InterestCorrect":1434095845,
+  "c2o3Lender":1038865155,"c2o3Term":1859766343,"c2o3APR":1905164170,
+  "c2o3CorrectPayment":92100725,"c2o3CorrectInterest":1579926559,
+  "c2o3StudentPayment":1230268441,"c2o3StudentInterest":2017784269,
+  "c2o3PaymentCorrect":673281201,"c2o3InterestCorrect":271194996,
+  "c2o4Lender":1579330290,"c2o4Term":1782218046,"c2o4APR":38214618,
+  "c2o4CorrectPayment":1082761658,"c2o4CorrectInterest":1478359121,
+  "c2o4StudentPayment":504594070,"c2o4StudentInterest":1326816635,
+  "c2o4PaymentCorrect":701719293,"c2o4InterestCorrect":1329955241,
+  "c2o5Lender":924188649,"c2o5Term":916838248,"c2o5APR":880858634,
+  "c2o5CorrectPayment":257380418,"c2o5CorrectInterest":740681473,
+  "c2o5StudentPayment":1176985773,"c2o5StudentInterest":819346812,
+  "c2o5PaymentCorrect":760293069,"c2o5InterestCorrect":79996437,
+  "c2o6Lender":2092677621,"c2o6Term":431011077,"c2o6APR":1472132198,
+  "c2o6CorrectPayment":539906249,"c2o6CorrectInterest":1030009176,
+  "c2o6StudentPayment":452877700,"c2o6StudentInterest":1840225371,
+  "c2o6PaymentCorrect":1068403381,"c2o6InterestCorrect":1937876616,
+  "c2o7Lender":1781286002,"c2o7Term":75340728,"c2o7APR":1229870586,
+  "c2o7CorrectPayment":248194079,"c2o7CorrectInterest":408430093,
+  "c2o7StudentPayment":285858267,"c2o7StudentInterest":1378674763,
+  "c2o7PaymentCorrect":1903948063,"c2o7InterestCorrect":1143056231,
+  "c2o8Lender":1687651475,"c2o8Term":2085732511,"c2o8APR":272629353,
+  "c2o8CorrectPayment":1711627478,"c2o8CorrectInterest":1682491390,
+  "c2o8StudentPayment":434643279,"c2o8StudentInterest":831195688,
+  "c2o8PaymentCorrect":1333215153,"c2o8InterestCorrect":1623539473,
+  "c2o9Lender":1898707783,"c2o9Term":461739058,"c2o9APR":1600907602,
+  "c2o9CorrectPayment":1110735779,"c2o9CorrectInterest":1963503287,
+  "c2o9StudentPayment":122249674,"c2o9StudentInterest":112824634,
+  "c2o9PaymentCorrect":1401897318,"c2o9InterestCorrect":1430685077
+};
 
-  // ── GLOBAL STATE ─────────────────────────────────────────────────────────────
-  // app.cars[i] = { carName, principal, offers: [{rate, termMonths, correctPayment, correctInterest}] }
-  // app.validated[i] = boolean (whether car section i has been validated + not edited since)
-  const app = {
-    studentName: "",
-    cars: [],
-    validated: [false, false],
-    score: 0,
+// ── LENDER DATA ──────────────────────────────────────────────────────────────
+// Tiers: "least" = credit unions (best rates), "average" = national banks,
+// "most" = online/marketplace lenders (highest rates)
+const LENDERS = [
+  { name:"Greenville Federal CU",  apr36:5.24, apr48:5.49, apr60:5.74,  tier:"least"   },
+  { name:"Truliant FCU",           apr36:5.39, apr48:5.50, apr60:5.64,  tier:"least"   },
+  { name:"Bank of America",        apr36:5.40, apr48:5.54, apr60:5.79,  tier:"average" },
+  { name:"Truist",                 apr36:5.50, apr48:5.75, apr60:6.00,  tier:"average" },
+  { name:"Bank of Travelers Rest", apr36:5.75, apr48:6.00, apr60:6.25,  tier:"average" },
+  { name:"Wells Fargo",            apr36:6.25, apr48:6.75, apr60:7.25,  tier:"average" },
+  { name:"CarMax",                 apr36:5.24, apr48:6.50, apr60:7.50,  tier:"most"    },
+  { name:"Carvana",                apr36:7.50, apr48:9.50, apr60:11.00, tier:"most"    },
+];
+
+const TERMS         = [36, 48, 60];    // loan term options in months
+const TOLERANCE     = 2.00;            // student answer within ±$2 = correct
+const TOTAL_FIELDS  = 36;              // 9 offers × 2 fields × 2 cars
+
+// ── APP STATE ────────────────────────────────────────────────────────────────
+// Centralized state - never read from DOM to determine logic
+const app = {
+  studentName: "",
+  cars: [],                      // array of 2 car objects
+  sectionValidated:  [false, false],  // was Validate clicked since last edit?
+  sectionAllCorrect: [false, false],  // are ALL answers in this section correct?
+  score: 0,
+};
+
+// ── THEME ────────────────────────────────────────────────────────────────────
+function setPalette(palette) {
+  document.documentElement.setAttribute("data-palette", palette);
+}
+function toggleDark() {
+  const html   = document.documentElement;
+  const isDark = html.getAttribute("data-theme") === "dark";
+  html.setAttribute("data-theme", isDark ? "light" : "dark");
+  document.getElementById("dark-toggle").textContent = isDark ? "🌙 Dark" : "☀️ Light";
+}
+
+// ── SETUP SUBMISSION ─────────────────────────────────────────────────────────
+function handleSetupSubmit(event) {
+  event.preventDefault(); // prevent page reload
+
+  const studentName   = document.getElementById("studentName").value.trim();
+  const car1Name      = document.getElementById("car1Name").value.trim();
+  const car1PrinRaw   = document.getElementById("car1Principal").value.trim();
+  const car2Name      = document.getElementById("car2Name").value.trim();
+  const car2PrinRaw   = document.getElementById("car2Principal").value.trim();
+  const errorEl       = document.getElementById("setup-error");
+
+  // Field presence check
+  if (!studentName || !car1Name || !car1PrinRaw || !car2Name || !car2PrinRaw) {
+    setError(errorEl, "Please fill in all fields before starting.");
+    return;
+  }
+
+  // Principal value checks
+  const p1 = Number(car1PrinRaw);
+  const p2 = Number(car2PrinRaw);
+  if (isNaN(p1) || p1 <= 0) { setError(errorEl, "Young Pro Car principal must be a positive number."); return; }
+  if (isNaN(p2) || p2 <= 0) { setError(errorEl, "Dream Car principal must be a positive number."); return; }
+  errorEl.style.display = "none";
+
+  // Initialize state
+  app.studentName        = studentName;
+  app.sectionValidated   = [false, false];
+  app.sectionAllCorrect  = [false, false];
+  app.score              = 0;
+  app.cars = [
+    { carName: car1Name, principal: p1, offers: generateOffersForCar(p1) },
+    { carName: car2Name, principal: p2, offers: generateOffersForCar(p2) },
+  ];
+
+  renderPracticeView();
+  showView("view-practice");
+}
+
+function setError(el, msg) {
+  el.textContent    = msg;
+  el.style.display  = "block";
+}
+
+// ── OFFER GENERATION ─────────────────────────────────────────────────────────
+// For each term (36, 48, 60): pick 1 random lender from each tier.
+// That's 3 tiers × 3 terms = 9 offers per car.
+// Within each term group, shuffle tier order so position doesn't hint at quality.
+function generateOffersForCar(principal) {
+  const byTier = {
+    least:   LENDERS.filter(l => l.tier === "least"),
+    average: LENDERS.filter(l => l.tier === "average"),
+    most:    LENDERS.filter(l => l.tier === "most"),
   };
 
-  // ── THEME TOGGLE ─────────────────────────────────────────────────────────────
-  function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.getAttribute("data-theme") === "dark";
-    html.setAttribute("data-theme", isDark ? "light" : "dark");
-    document.getElementById("theme-toggle").textContent = isDark ? "🌙 Dark Mode" : "☀️ Light Mode";
-  }
+  const offers = [];
+  for (const term of TERMS) {
+    const aprKey = `apr${term}`; // "apr36", "apr48", or "apr60"
 
-  // ── SETUP FLOW ───────────────────────────────────────────────────────────────
-  function handleSetupSubmit(event) {
-    event.preventDefault(); // prevent native form submit / page reload
-
-    const studentName  = document.getElementById("studentName").value.trim();
-    const car1Name     = document.getElementById("car1Name").value.trim();
-    const car1PrinRaw  = document.getElementById("car1Principal").value.trim();
-    const car2Name     = document.getElementById("car2Name").value.trim();
-    const car2PrinRaw  = document.getElementById("car2Principal").value.trim();
-    const errorEl      = document.getElementById("setup-error");
-
-    // Validate: all fields present
-    if (!studentName || !car1Name || !car1PrinRaw || !car2Name || !car2PrinRaw) {
-      showError(errorEl, "Please fill in all fields before starting.");
-      return;
-    }
-
-    // Validate: principals are positive numbers
-    const car1Principal = Number(car1PrinRaw);
-    const car2Principal = Number(car2PrinRaw);
-    if (isNaN(car1Principal) || car1Principal <= 0) {
-      showError(errorEl, "Car 1 Principal must be a valid positive number.");
-      return;
-    }
-    if (isNaN(car2Principal) || car2Principal <= 0) {
-      showError(errorEl, "Car 2 Principal must be a valid positive number.");
-      return;
-    }
-
-    errorEl.style.display = "none";
-
-    // Store in app state
-    app.studentName = studentName;
-    app.cars = [
-      { carName: car1Name, principal: car1Principal, offers: generateOffersForCar(car1Principal) },
-      { carName: car2Name, principal: car2Principal, offers: generateOffersForCar(car2Principal) },
+    // Pick one lender from each tier for this term group
+    const group = [
+      pickRandom(byTier.least),
+      pickRandom(byTier.average),
+      pickRandom(byTier.most),
     ];
-    app.validated = [false, false];
-    app.score = 0;
+    shuffleInPlace(group); // randomize tier order within the group
 
-    // Render and switch views
-    renderPracticeView();
-    showView("view-practice");
-  }
-
-  function showError(el, msg) {
-    el.textContent = msg;
-    el.style.display = "block";
-  }
-
-  // ── LOAN GENERATION ───────────────────────────────────────────────────────────
-  function generateOffersForCar(principal) {
-    // Build all rate/term combinations, shuffle, pick 4 unique combos
-    const combos = [];
-    for (const rate of AVAILABLE_RATES) {
-      for (const term of AVAILABLE_TERMS) {
-        combos.push({ rate, termMonths: term });
-      }
+    for (const lender of group) {
+      const apr = lender[aprKey];
+      const { payment, interest } = calcLoan(principal, apr, term);
+      offers.push({
+        lenderName:      lender.name,
+        termMonths:      term,
+        apr:             apr,
+        correctPayment:  roundCents(payment),
+        correctInterest: roundCents(interest),
+      });
     }
-    shuffleArray(combos);
+  }
+  return offers; // 9 total, ordered by term group (36/36/36 → 48/48/48 → 60/60/60)
+}
 
-    const selected = combos.slice(0, OFFERS_PER_CAR);
-    return selected.map(({ rate, termMonths }) => {
-      const { payment, interest } = calculateLoanValues(principal, rate, termMonths);
-      return {
-        rate,
-        termMonths,
-        correctPayment:  roundToCents(payment),
-        correctInterest: roundToCents(interest),
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+function shuffleInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+// ── LOAN MATH ────────────────────────────────────────────────────────────────
+// Standard amortization: M = P * [r(1+r)^n] / [(1+r)^n - 1]
+// r = monthly rate (APR / 100 / 12),  n = term in months
+function calcLoan(principal, annualPct, months) {
+  const r      = annualPct / 100 / 12;
+  const factor = Math.pow(1 + r, months);
+  const payment = principal * (r * factor) / (factor - 1);
+  return { payment, interest: (payment * months) - principal };
+}
+
+// Round to exactly 2 decimal places - avoids floating-point drift in comparisons
+function roundCents(v) { return Math.round(v * 100) / 100; }
+
+// ── RENDER PRACTICE VIEW ──────────────────────────────────────────────────────
+function renderPracticeView() {
+  app.cars.forEach((car, ci) => {
+    document.getElementById(`car${ci + 1}-header-name`).textContent = car.carName;
+    const tbody = document.getElementById(`car${ci + 1}-tbody`);
+    tbody.innerHTML = "";
+
+    let lastTerm = null;
+    car.offers.forEach((offer, oi) => {
+      // Insert group separator when the term changes
+      if (offer.termMonths !== lastTerm) {
+        lastTerm = offer.termMonths;
+        const sep = document.createElement("tr");
+        sep.className = "group-row";
+        sep.innerHTML = `<td colspan="6">${offer.termMonths}-Month Loan Offers</td>`;
+        tbody.appendChild(sep);
+      }
+
+      const payId  = `c${ci}_o${oi}_pay`;
+      const intId  = `c${ci}_o${oi}_int`;
+      const hpId   = `h_${payId}`;
+      const hiId   = `h_${intId}`;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="td-lender">${esc(offer.lenderName)}</td>
+        <td class="td-mono">$${fmt(car.principal)}</td>
+        <td class="td-mono">${offer.apr}%</td>
+        <td class="td-mono">${offer.termMonths} mo</td>
+        <td>
+          <input type="number" step="0.01" class="student-input"
+            id="${payId}" placeholder="0.00"
+            oninput="onEdit(${ci})" />
+          <span class="answer-hint" id="${hpId}"></span>
+        </td>
+        <td>
+          <input type="number" step="0.01" class="student-input"
+            id="${intId}" placeholder="0.00"
+            oninput="onEdit(${ci})" />
+          <span class="answer-hint" id="${hiId}"></span>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+
+  refreshProgress();
+  refreshSubmit();
+}
+
+function esc(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+// ── ANTI-TAMPER ──────────────────────────────────────────────────────────────
+// If a student edits any field after a section was validated, revoke that section.
+function onEdit(ci) {
+  if (app.sectionValidated[ci]) revokeSection(ci);
+}
+
+function revokeSection(ci) {
+  app.sectionValidated[ci]  = false;
+  app.sectionAllCorrect[ci] = false;
+
+  const statusEl = document.getElementById(`car${ci + 1}-status`);
+  statusEl.className   = "section-status stale";
+  statusEl.textContent = "⚠ Needs Re-Validation";
+  statusEl.style.display = "inline-flex";
+
+  // Clear all visual feedback for this section
+  app.cars[ci].offers.forEach((_, oi) => {
+    const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
+    const intEl = document.getElementById(`c${ci}_o${oi}_int`);
+    const hpEl  = document.getElementById(`h_c${ci}_o${oi}_pay`);
+    const hiEl  = document.getElementById(`h_c${ci}_o${oi}_int`);
+    if (payEl) payEl.className = "student-input";
+    if (intEl) intEl.className = "student-input";
+    if (hpEl)  { hpEl.textContent = ""; hpEl.style.display = "none"; }
+    if (hiEl)  { hiEl.textContent = ""; hiEl.style.display = "none"; }
+  });
+
+  recountScore();
+  refreshSubmit();
+}
+
+// ── SECTION VALIDATION ────────────────────────────────────────────────────────
+function validateSection(ci) {
+  const car = app.cars[ci];
+  let sectionCorrect = 0;
+  let allCorrect = true;
+
+  car.offers.forEach((offer, oi) => {
+    const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
+    const intEl = document.getElementById(`c${ci}_o${oi}_int`);
+    const hpEl  = document.getElementById(`h_c${ci}_o${oi}_pay`);
+    const hiEl  = document.getElementById(`h_c${ci}_o${oi}_int`);
+
+    const payOk = isCorrect(Number(payEl.value), offer.correctPayment, payEl.value);
+    const intOk = isCorrect(Number(intEl.value), offer.correctInterest, intEl.value);
+
+    // Payment field
+    const wasPayCorrect = payEl.classList.contains("correct");
+    if (payOk) {
+      if (!wasPayCorrect) confetti(payEl); // burst only on new correct answers
+      payEl.className     = "student-input correct";
+      hpEl.style.display  = "none";
+      hpEl.textContent    = "";
+      sectionCorrect++;
+    } else {
+      payEl.className     = "student-input wrong";
+      hpEl.textContent    = "✗ Try again";
+      hpEl.style.display  = "block";
+      allCorrect = false;
+    }
+
+    // Interest field
+    const wasIntCorrect = intEl.classList.contains("correct");
+    if (intOk) {
+      if (!wasIntCorrect) confetti(intEl);
+      intEl.className     = "student-input correct";
+      hiEl.style.display  = "none";
+      hiEl.textContent    = "";
+      sectionCorrect++;
+    } else {
+      intEl.className     = "student-input wrong";
+      hiEl.textContent    = "✗ Try again";
+      hiEl.style.display  = "block";
+      allCorrect = false;
+    }
+  });
+
+  app.sectionValidated[ci]  = true;
+  app.sectionAllCorrect[ci] = allCorrect;
+
+  const statusEl = document.getElementById(`car${ci + 1}-status`);
+  if (allCorrect) {
+    statusEl.className   = "section-status validated";
+    statusEl.textContent = `✓ All Correct (${sectionCorrect}/18)`;
+  } else {
+    statusEl.className   = "section-status needs-work";
+    statusEl.textContent = `${sectionCorrect}/18 — Fix & Re-Validate`;
+  }
+  statusEl.style.display = "inline-flex";
+
+  recountScore();
+  refreshSubmit();
+}
+
+// An answer is correct if: it's non-blank, numeric, and within ±$2 of the correct value
+function isCorrect(studentVal, correctVal, raw) {
+  if (raw === "" || raw === null || raw === undefined) return false;
+  if (isNaN(studentVal)) return false;
+  return Math.abs(studentVal - correctVal) <= TOLERANCE;
+}
+
+// Recount total correct fields across both validated sections
+function recountScore() {
+  let total = 0;
+  app.cars.forEach((car, ci) => {
+    if (!app.sectionValidated[ci]) return;
+    car.offers.forEach((offer, oi) => {
+      const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
+      const intEl = document.getElementById(`c${ci}_o${oi}_int`);
+      if (isCorrect(Number(payEl.value), offer.correctPayment, payEl.value))   total++;
+      if (isCorrect(Number(intEl.value), offer.correctInterest, intEl.value))  total++;
+    });
+  });
+  app.score = total;
+  refreshProgress();
+}
+
+function refreshProgress() {
+  const pct = Math.round((app.score / TOTAL_FIELDS) * 100);
+  document.getElementById("progress-num").textContent  = app.score;
+  document.getElementById("progress-pct").textContent  = `/ 36 \u00a0(${pct}%)`;
+  document.getElementById("progress-fill").style.width = `${pct}%`;
+}
+
+// Submit unlocks only when BOTH sections have all answers correct
+function refreshSubmit() {
+  const ready = app.sectionAllCorrect[0] && app.sectionAllCorrect[1];
+  document.getElementById("btn-submit").disabled    = !ready;
+  document.getElementById("submit-note").textContent = ready
+    ? "All answers correct! Ready to submit."
+    : "All 36 answers must be correct before submitting.";
+}
+
+// ── CONFETTI BURST ────────────────────────────────────────────────────────────
+// Lightweight canvas confetti that fires from the position of a correct input.
+const CONFETTI_COLORS = ["#FFD700","#FF6B6B","#4ECDC4","#45B7D1","#96CEB4","#FECA57","#FF9FF3","#6BCB77"];
+let activeConfetti = 0;
+const MAX_CONFETTI  = 5;
+
+function confetti(inputEl) {
+  if (activeConfetti >= MAX_CONFETTI) return;
+  activeConfetti++;
+
+  const canvas = document.createElement("canvas");
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.cssText =
+    `position:fixed;top:0;left:0;width:${window.innerWidth}px;` +
+    `height:${window.innerHeight}px;pointer-events:none;z-index:9999;`;
+  document.body.appendChild(canvas);
+
+  const ctx  = canvas.getContext("2d");
+  const rect  = inputEl.getBoundingClientRect();
+  const ox    = rect.left + rect.width  / 2;
+  const oy    = rect.top  + rect.height / 2;
+
+  const particles = Array.from({ length: 24 }, () => ({
+    x:    ox,
+    y:    oy,
+    vx:   (Math.random() - 0.5) * 14,
+    vy:   (Math.random() - 2.0) * 10,
+    w:    Math.random() * 8 + 4,
+    h:    Math.random() * 5 + 3,
+    rot:  Math.random() * Math.PI * 2,
+    rotV: (Math.random() - 0.5) * 0.28,
+    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+  }));
+
+  const DURATION = 1300;
+  let start = null;
+
+  (function animate(ts) {
+    if (!start) start = ts;
+    const prog = (ts - start) / DURATION;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      p.x   += p.vx;
+      p.y   += p.vy;
+      p.vy  += 0.38; // gravity
+      p.rot += p.rotV;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, 1 - prog * 1.5);
+      ctx.fillStyle   = p.color;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+
+    if (prog < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      canvas.remove();
+      activeConfetti--;
+    }
+  })(performance.now());
+}
+
+// ── PAYLOAD + FORM PARAMS ────────────────────────────────────────────────────
+function buildPayload() {
+  return {
+    studentName:   app.studentName,
+    timestamp:     new Date().toISOString(),
+    score:         app.score,
+    totalPossible: TOTAL_FIELDS,
+    cars: app.cars.map((car, ci) => ({
+      carName:   car.carName,
+      principal: car.principal,
+      offers: car.offers.map((offer, oi) => {
+        const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
+        const intEl = document.getElementById(`c${ci}_o${oi}_int`);
+        const sp = Number(payEl.value);
+        const si = Number(intEl.value);
+        return {
+          lenderName:      offer.lenderName,
+          termMonths:      offer.termMonths,
+          apr:             offer.apr,
+          correctPayment:  offer.correctPayment,
+          correctInterest: offer.correctInterest,
+          studentPayment:  isNaN(sp) ? 0 : sp,
+          studentInterest: isNaN(si) ? 0 : si,
+          paymentCorrect:  isCorrect(sp, offer.correctPayment, payEl.value),
+          interestCorrect: isCorrect(si, offer.correctInterest, intEl.value),
+        };
+      }),
+    })),
+  };
+}
+
+// Build URLSearchParams for Google Forms submission.
+// Google Forms accepts application/x-www-form-urlencoded as a "simple request"
+// that does not trigger CORS preflights, making it compatible with mode:"no-cors".
+function buildFormParams(payload) {
+  const params = new URLSearchParams();
+  const E = FORM_ENTRY_IDS;
+
+  const a = (id, val) => params.append(`entry.${id}`, val ?? "");
+
+  a(E.studentName,  payload.studentName);
+  a(E.timestamp,    payload.timestamp);
+  a(E.finalScore,   `${payload.score}/36`);
+
+  a(E.car1Name,      payload.cars[0].carName);
+  a(E.car1Principal, payload.cars[0].principal);
+  payload.cars[0].offers.forEach((o, i) => {
+    const n = i + 1;
+    a(E[`c1o${n}Lender`],          o.lenderName);
+    a(E[`c1o${n}Term`],            o.termMonths);
+    a(E[`c1o${n}APR`],             o.apr);
+    a(E[`c1o${n}CorrectPayment`],  o.correctPayment);
+    a(E[`c1o${n}CorrectInterest`], o.correctInterest);
+    a(E[`c1o${n}StudentPayment`],  o.studentPayment);
+    a(E[`c1o${n}StudentInterest`], o.studentInterest);
+    a(E[`c1o${n}PaymentCorrect`],  o.paymentCorrect  ? "Yes" : "No");
+    a(E[`c1o${n}InterestCorrect`], o.interestCorrect ? "Yes" : "No");
+  });
+
+  a(E.car2Name,      payload.cars[1].carName);
+  a(E.car2Principal, payload.cars[1].principal);
+  payload.cars[1].offers.forEach((o, i) => {
+    const n = i + 1;
+    a(E[`c2o${n}Lender`],          o.lenderName);
+    a(E[`c2o${n}Term`],            o.termMonths);
+    a(E[`c2o${n}APR`],             o.apr);
+    a(E[`c2o${n}CorrectPayment`],  o.correctPayment);
+    a(E[`c2o${n}CorrectInterest`], o.correctInterest);
+    a(E[`c2o${n}StudentPayment`],  o.studentPayment);
+    a(E[`c2o${n}StudentInterest`], o.studentInterest);
+    a(E[`c2o${n}PaymentCorrect`],  o.paymentCorrect  ? "Yes" : "No");
+    a(E[`c2o${n}InterestCorrect`], o.interestCorrect ? "Yes" : "No");
+  });
+
+  return params;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+async function submitResults() {
+  const btn     = document.getElementById("btn-submit");
+  const alertEl = document.getElementById("submit-alert");
+
+  btn.disabled     = true;
+  btn.textContent  = "Submitting…";
+  alertEl.style.display = "none";
+
+  const payload = buildPayload();
+  const params  = buildFormParams(payload);
+
+  try {
+    // Google Forms submission via no-cors + urlencoded.
+    // The browser cannot read the response (opaque), but the form receives the data.
+    // Confirm receipt by checking your Google Sheet for new rows.
+    await fetch(FORM_SUBMIT_URL, {
+      method:  "POST",
+      mode:    "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body:    params.toString(),
+    });
+
+    // Fetch resolved = request was delivered to Google.
+    showSuccessView(payload);
+
+  } catch (err) {
+    // Fetch rejected = network-level failure (server was never reached).
+    alertEl.className     = "alert alert-error";
+    alertEl.textContent   = `\u274C Network error: ${err.message}. Check your connection and try again.`;
+    alertEl.style.display = "block";
+    btn.disabled    = false;
+    btn.textContent = "Submit All Results";
+  }
+}
+
+// ── SUCCESS VIEW ──────────────────────────────────────────────────────────────
+function showSuccessView(payload) {
+  const pct = Math.round((payload.score / TOTAL_FIELDS) * 100);
+  document.getElementById("success-score").textContent = payload.score;
+  document.getElementById("success-sub").textContent   = `out of 36 \u2014 ${pct}%`;
+
+  const container = document.getElementById("success-tables");
+  container.innerHTML = "";
+  payload.cars.forEach((car, i) => container.appendChild(buildSortableTable(car, i)));
+
+  showView("view-success");
+}
+
+// Column definitions for the success summary tables
+const SUMMARY_COLS = [
+  { key:"lenderName",     label:"Lender",         numeric:false, fmt: v => v                          },
+  { key:"termMonths",     label:"Term (mo)",       numeric:true,  fmt: v => v                          },
+  { key:"apr",            label:"APR (%)",         numeric:true,  fmt: v => v.toFixed(2) + "%"         },
+  { key:"principal",      label:"Principal",       numeric:true,  fmt: v => "$" + fmt(v)               },
+  { key:"correctPayment", label:"Mo. Payment",     numeric:true,  fmt: v => "$" + fmt(v)               },
+  { key:"totalInterest",  label:"Total Interest",  numeric:true,  fmt: v => "$" + fmt(v)               },
+  { key:"totalCost",      label:"Total Cost",      numeric:true,  fmt: v => "$" + fmt(v)               },
+];
+
+// Per-table sort state: [{ col: colIndex|null, dir: 'asc'|'desc' }, ...]
+const sortState = [{ col:null, dir:"asc" }, { col:null, dir:"asc" }];
+
+function buildSortableTable(car, tableIndex) {
+  // Flatten offers with derived columns for display
+  const baseRows = car.offers.map(o => ({
+    lenderName:     o.lenderName,
+    termMonths:     o.termMonths,
+    apr:            o.apr,
+    principal:      car.principal,
+    correctPayment: o.correctPayment,
+    totalInterest:  o.correctInterest,
+    totalCost:      roundCents(car.principal + o.correctInterest),
+  }));
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "success-table-card";
+
+  const titleEl = document.createElement("div");
+  titleEl.className   = "success-table-title";
+  titleEl.textContent = car.carName;
+  wrapper.appendChild(titleEl);
+
+  const scrollWrap = document.createElement("div");
+  scrollWrap.style.overflowX = "auto";
+  wrapper.appendChild(scrollWrap);
+
+  // Render renders from a rows array (allows sorted copies)
+  function render(rows) {
+    scrollWrap.innerHTML = "";
+    const table = document.createElement("table");
+    table.className = "sortable-table";
+
+    // Header
+    const thead = document.createElement("thead");
+    const hRow  = document.createElement("tr");
+    SUMMARY_COLS.forEach((col, colIdx) => {
+      const th = document.createElement("th");
+      th.textContent = col.label;
+      const s = sortState[tableIndex];
+      if (s.col === colIdx) th.className = s.dir === "asc" ? "sort-asc" : "sort-desc";
+
+      th.onclick = () => {
+        const s = sortState[tableIndex];
+        s.dir = (s.col === colIdx && s.dir === "asc") ? "desc" : "asc";
+        s.col = colIdx;
+        const sorted = [...baseRows].sort((a, b) => {
+          const av = a[col.key];
+          const bv = b[col.key];
+          const cmp = col.numeric ? av - bv : String(av).localeCompare(String(bv));
+          return s.dir === "asc" ? cmp : -cmp;
+        });
+        render(sorted);
       };
+      hRow.appendChild(th);
     });
-  }
+    thead.appendChild(hRow);
+    table.appendChild(thead);
 
-  // Fisher-Yates shuffle (in-place)
-  function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
-  // ── LOAN MATH ────────────────────────────────────────────────────────────────
-  // Standard amortization formula:
-  //   M = P * [r(1+r)^n] / [(1+r)^n - 1]
-  //   where r = APR / 100 / 12  (monthly rate)
-  //         n = term in months
-  //         P = principal
-  function calculateLoanValues(principal, annualRatePct, termMonths) {
-    const r = annualRatePct / 100 / 12; // monthly interest rate
-    const n = termMonths;
-    const P = principal;
-
-    const factor = Math.pow(1 + r, n);           // (1+r)^n
-    const payment = P * (r * factor) / (factor - 1); // monthly payment
-    const interest = (payment * n) - P;             // total interest
-
-    return { payment, interest };
-  }
-
-  // Round to exactly 2 decimal places to avoid floating-point drift
-  function roundToCents(value) {
-    return Math.round(value * 100) / 100;
-  }
-
-  // ── RENDERING ────────────────────────────────────────────────────────────────
-  function renderPracticeView() {
-    app.cars.forEach((car, carIndex) => {
-      const tbodyId = carIndex === 0 ? "car1-tbody" : "car2-tbody";
-      const headerId = carIndex === 0 ? "car1-header-name" : "car2-header-name";
-
-      document.getElementById(headerId).textContent = car.carName;
-
-      const tbody = document.getElementById(tbodyId);
-      tbody.innerHTML = "";
-
-      car.offers.forEach((offer, offerIndex) => {
-        const offerNum  = offerIndex + 1;
-        const payId     = `c${carIndex}_o${offerIndex}_pay`;
-        const intId     = `c${carIndex}_o${offerIndex}_int`;
-        const hintPayId = `hint_${payId}`;
-        const hintIntId = `hint_${intId}`;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td class="td-data td-offer">#${offerNum}</td>
-          <td class="td-data">$${formatMoney(car.principal)}</td>
-          <td class="td-data">${offer.rate}%</td>
-          <td class="td-data">${offer.termMonths} mo</td>
-          <td>
-            <input type="number" step="0.01" class="student-input"
-              id="${payId}" placeholder="0.00"
-              oninput="handleStudentInput(${carIndex})" />
-            <span class="answer-hint" id="${hintPayId}" style="display:none;"></span>
-          </td>
-          <td>
-            <input type="number" step="0.01" class="student-input"
-              id="${intId}" placeholder="0.00"
-              oninput="handleStudentInput(${carIndex})" />
-            <span class="answer-hint" id="${hintIntId}" style="display:none;"></span>
-          </td>
-        `;
-        tbody.appendChild(tr);
+    // Body
+    const tbody = document.createElement("tbody");
+    rows.forEach(row => {
+      const tr = document.createElement("tr");
+      SUMMARY_COLS.forEach((col, colIdx) => {
+        const td = document.createElement("td");
+        td.textContent = col.fmt(row[col.key]);
+        if (colIdx === 0) td.className = "td-name";
+        tr.appendChild(td);
       });
+      tbody.appendChild(tr);
     });
-
-    updateScoreDisplay();
-    updateSubmitButton();
+    table.appendChild(tbody);
+    scrollWrap.appendChild(table);
   }
 
-  // ── ANTI-TAMPERING: invalidate section when a student edits after validation ──
-  function handleStudentInput(carIndex) {
-    if (app.validated[carIndex]) {
-      invalidateCarSection(carIndex);
-    }
-  }
+  render(baseRows);
+  return wrapper;
+}
 
-  function invalidateCarSection(carIndex) {
-    app.validated[carIndex] = false;
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function showView(id) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+}
 
-    const statusId = carIndex === 0 ? "car1-status" : "car2-status";
-    const statusEl = document.getElementById(statusId);
-    statusEl.className = "section-status invalidated";
-    statusEl.textContent = "⚠ Needs Re-Validation";
-    statusEl.style.display = "inline-flex";
+function fmt(n) {
+  return Number(n).toLocaleString("en-US", { minimumFractionDigits:2, maximumFractionDigits:2 });
+}
 
-    // Clear old feedback highlights and hints for this section
-    app.cars[carIndex].offers.forEach((_, offerIndex) => {
-      const payEl     = document.getElementById(`c${carIndex}_o${offerIndex}_pay`);
-      const intEl     = document.getElementById(`c${carIndex}_o${offerIndex}_int`);
-      const hintPayEl = document.getElementById(`hint_c${carIndex}_o${offerIndex}_pay`);
-      const hintIntEl = document.getElementById(`hint_c${carIndex}_o${offerIndex}_int`);
-
-      if (payEl) { payEl.className = "student-input"; }
-      if (intEl) { intEl.className = "student-input"; }
-      if (hintPayEl) { hintPayEl.style.display = "none"; hintPayEl.textContent = ""; }
-      if (hintIntEl) { hintIntEl.style.display = "none"; hintIntEl.textContent = ""; }
-    });
-
-    updateSubmitButton();
-  }
-
-  // ── VALIDATION ────────────────────────────────────────────────────────────────
-  function validateCarSection(carIndex) {
-    const car = app.cars[carIndex];
-    let sectionScore = 0;
-
-    car.offers.forEach((offer, offerIndex) => {
-      const payEl     = document.getElementById(`c${carIndex}_o${offerIndex}_pay`);
-      const intEl     = document.getElementById(`c${carIndex}_o${offerIndex}_int`);
-      const hintPayEl = document.getElementById(`hint_c${carIndex}_o${offerIndex}_pay`);
-      const hintIntEl = document.getElementById(`hint_c${carIndex}_o${offerIndex}_int`);
-
-      const studentPay = Number(payEl.value);
-      const studentInt = Number(intEl.value);
-
-      // isCorrect: value within ±$2.00 of the rounded correct answer
-      const payCorrect = isAnswerCorrect(studentPay, offer.correctPayment, payEl.value);
-      const intCorrect = isAnswerCorrect(studentInt, offer.correctInterest, intEl.value);
-
-      if (payCorrect) {
-        payEl.className = "student-input correct";
-        hintPayEl.style.display = "none";
-        sectionScore++;
-      } else {
-        payEl.className = "student-input wrong";
-        hintPayEl.textContent = `✗ Correct: $${formatMoney(offer.correctPayment)}`;
-        hintPayEl.style.display = "block";
-      }
-
-      if (intCorrect) {
-        intEl.className = "student-input correct";
-        hintIntEl.style.display = "none";
-        sectionScore++;
-      } else {
-        intEl.className = "student-input wrong";
-        hintIntEl.textContent = `✗ Correct: $${formatMoney(offer.correctInterest)}`;
-        hintIntEl.style.display = "block";
-      }
-    });
-
-    // Mark section as validated
-    app.validated[carIndex] = true;
-
-    const statusId = carIndex === 0 ? "car1-status" : "car2-status";
-    const statusEl = document.getElementById(statusId);
-    statusEl.className = "section-status validated";
-    statusEl.textContent = `✓ Validated (${sectionScore}/8)`;
-    statusEl.style.display = "inline-flex";
-
-    // Recalculate total score from both sections
-    recalculateTotalScore();
-    updateSubmitButton();
-  }
-
-  // Check if a student answer is within ±TOLERANCE of the correct value.
-  // Blank or non-numeric input is treated as incorrect.
-  function isAnswerCorrect(studentVal, correctVal, rawStr) {
-    if (rawStr === "" || rawStr === null || rawStr === undefined) return false;
-    if (isNaN(studentVal)) return false;
-    return Math.abs(studentVal - correctVal) <= TOLERANCE;
-  }
-
-  // Recount score by re-reading all input values against correct answers
-  function recalculateTotalScore() {
-    let total = 0;
-    app.cars.forEach((car, carIndex) => {
-      if (!app.validated[carIndex]) return; // only count validated sections
-      car.offers.forEach((offer, offerIndex) => {
-        const payEl = document.getElementById(`c${carIndex}_o${offerIndex}_pay`);
-        const intEl = document.getElementById(`c${carIndex}_o${offerIndex}_int`);
-        if (isAnswerCorrect(Number(payEl.value), offer.correctPayment, payEl.value)) total++;
-        if (isAnswerCorrect(Number(intEl.value), offer.correctInterest, intEl.value)) total++;
-      });
-    });
-    app.score = total;
-    updateScoreDisplay();
-  }
-
-  function updateScoreDisplay() {
-    document.getElementById("score-num").textContent  = app.score;
-    document.getElementById("score-fill").style.width = `${(app.score / TOTAL_POSSIBLE) * 100}%`;
-  }
-
-  function updateSubmitButton() {
-    const bothValidated = app.validated[0] && app.validated[1];
-    document.getElementById("btn-submit").disabled = !bothValidated;
-    document.getElementById("submit-note").textContent = bothValidated
-      ? "Both sections validated. Ready to submit!"
-      : "Both sections must be validated before submitting.";
-  }
-
-  // ── PAYLOAD BUILDER ──────────────────────────────────────────────────────────
-  function buildPayload() {
-    return {
-      studentName:   app.studentName,
-      timestamp:     new Date().toISOString(),
-      score:         app.score,
-      totalPossible: TOTAL_POSSIBLE,
-      cars: app.cars.map((car, carIndex) => ({
-        carName:   car.carName,
-        principal: car.principal,
-        offers: car.offers.map((offer, offerIndex) => {
-          const payEl = document.getElementById(`c${carIndex}_o${offerIndex}_pay`);
-          const intEl = document.getElementById(`c${carIndex}_o${offerIndex}_int`);
-          const studentPay = Number(payEl.value);
-          const studentInt = Number(intEl.value);
-          return {
-            rate:            offer.rate,
-            termMonths:      offer.termMonths,
-            correctPayment:  offer.correctPayment,
-            correctInterest: offer.correctInterest,
-            studentPayment:  isNaN(studentPay) ? 0 : studentPay,
-            studentInterest: isNaN(studentInt) ? 0 : studentInt,
-            paymentCorrect:  isAnswerCorrect(studentPay, offer.correctPayment, payEl.value),
-            interestCorrect: isAnswerCorrect(studentInt, offer.correctInterest, intEl.value),
-          };
-        }),
-      })),
-    };
-  }
-
-  // ── SUBMISSION ───────────────────────────────────────────────────────────────
-  async function submitResults() {
-    // Block teacher-placeholder URL
-    if (APPS_SCRIPT_URL === "YOUR_URL_HERE") {
-      showSubmitAlert(
-        "⚠️ Teacher Setup Required: APPS_SCRIPT_URL is still the placeholder. " +
-        "Replace it in index.html with your deployed Apps Script URL.",
-        "alert-error"
-      );
-      return;
-    }
-
-    const submitBtn = document.getElementById("btn-submit");
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting…";
-    document.getElementById("submit-alert").style.display = "none";
-
-    const payload = buildPayload();
-
-    try {
-      // no-cors mode: the response is "opaque" — we cannot read status or body.
-      // If the fetch promise resolves, we treat it as a completed submission attempt.
-      // If it rejects, the network failed before the server could receive the request.
-      await fetch(APPS_SCRIPT_URL, {
-        method:  "POST",
-        mode:    "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body:    JSON.stringify(payload),
-      });
-
-      // Fetch resolved = request was sent (no-cors gives no confirmation of server success).
-      document.getElementById("success-score").textContent = app.score;
-      document.getElementById("success-name").textContent  = `Submitted for: ${app.studentName}`;
-      showView("view-success");
-
-    } catch (err) {
-      // Fetch rejected = network error before the server was reached
-      showSubmitAlert(
-        `❌ Network error: ${err.message}. Check your internet connection and try again.`,
-        "alert-error"
-      );
-      // Re-enable button so student can retry
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit All Results";
-    }
-  }
-
-  function showSubmitAlert(msg, cls) {
-    const el = document.getElementById("submit-alert");
-    el.className = `alert ${cls}`;
-    el.textContent = msg;
-    el.style.display = "block";
-  }
-
-  // ── NAVIGATION ───────────────────────────────────────────────────────────────
-  function showView(viewId) {
-    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-    document.getElementById(viewId).classList.add("active");
-  }
-
-  // ── UTILITIES ────────────────────────────────────────────────────────────────
-  function formatMoney(n) {
-    return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  // ── INITIALIZATION ────────────────────────────────────────────────────────────
-  function initializeApp() {
-    showView("view-setup");
-  }
-
-  initializeApp();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+showView("view-setup");
 </script>
 </body>
 </html>

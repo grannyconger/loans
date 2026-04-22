@@ -5,632 +5,887 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Auto Loan Practice</title>
   <style>
-    /* ── THEME TOKENS ─────────────────────────────────────────────────────── */
 
-    /* CLASSIC (default) - warm, serif feel */
-    :root,
-    [data-palette="classic"][data-theme="light"] {
-      --bg:          #f5f4f0;
-      --surface:     #ffffff;
-      --surface-alt: #f0efe9;
-      --border:      #d8d6cf;
-      --text:        #1a1917;
-      --text-muted:  #6b6860;
-      --accent:      #1a5c96;
-      --accent-2:    #c74500;
-      --correct:     #1a6e3b;
-      --correct-bg:  #e4f4ec;
-      --wrong:       #a31b1b;
-      --wrong-bg:    #fdeaea;
-      --btn-text:    #ffffff;
-      --group-row:   #eef3f8;
-      --shadow:      0 2px 10px rgba(0,0,0,0.07);
-    }
-    [data-palette="classic"][data-theme="dark"] {
-      --bg:          #141414;
-      --surface:     #1f1f1f;
-      --surface-alt: #282828;
-      --border:      #373737;
-      --text:        #e8e6e0;
-      --text-muted:  #8a8880;
-      --accent:      #5b9bd5;
-      --accent-2:    #e8784a;
-      --correct:     #55ba78;
-      --correct-bg:  #0c2b1a;
-      --wrong:       #e06060;
-      --wrong-bg:    #2a0d0d;
-      --btn-text:    #ffffff;
-      --group-row:   #1a2535;
-      --shadow:      0 2px 14px rgba(0,0,0,0.35);
-    }
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — 3 palettes × 2 modes = 6 combinations
+═══════════════════════════════════════════════════════════ */
 
-    /* NAVY PRO - deep professional */
-    [data-palette="navy"][data-theme="light"] {
-      --bg:          #eef2f7;
-      --surface:     #ffffff;
-      --surface-alt: #e2e9f3;
-      --border:      #c0cedd;
-      --text:        #0b1829;
-      --text-muted:  #4e6a8a;
-      --accent:      #0c2b56;
-      --accent-2:    #c24a00;
-      --correct:     #0a5c2c;
-      --correct-bg:  #d5f0e2;
-      --wrong:       #961414;
-      --wrong-bg:    #fce8e8;
-      --btn-text:    #ffffff;
-      --group-row:   #d6e4f4;
-      --shadow:      0 2px 10px rgba(12,43,86,0.10);
-    }
-    [data-palette="navy"][data-theme="dark"] {
-      --bg:          #040c1a;
-      --surface:     #0c1e34;
-      --surface-alt: #122540;
-      --border:      #1a3050;
-      --text:        #cddcf0;
-      --text-muted:  #5e88b8;
-      --accent:      #5aa4f8;
-      --accent-2:    #f97a38;
-      --correct:     #30cf90;
-      --correct-bg:  #041f14;
-      --wrong:       #f07070;
-      --wrong-bg:    #1e0606;
-      --btn-text:    #040c1a;
-      --group-row:   #08162a;
-      --shadow:      0 2px 14px rgba(0,0,0,0.45);
-    }
+/* CLASSIC — deep navy on aged paper */
+:root,
+[data-palette="classic"][data-theme="light"] {
+  --bg:         #f6f5f0;
+  --surface:    #ffffff;
+  --surf-alt:   #edecea;
+  --border:     #d6d3ca;
+  --text:       #111827;
+  --muted:      #6b7280;
+  --accent:     #1e3a5f;
+  --accent-lt:  #e8edf5;
+  --cta:        #b54708;
+  --ok:         #14532d;
+  --ok-bg:      #dcfce7;
+  --err:        #991b1b;
+  --err-bg:     #fee2e2;
+  --group:      #eef2f8;
+  --modal-bg:   rgba(10,8,4,0.58);
+  --sh-sm:      0 1px 3px rgba(0,0,0,0.07);
+  --sh-lg:      0 16px 48px rgba(0,0,0,0.18);
+}
+[data-palette="classic"][data-theme="dark"] {
+  --bg:         #0f0e0c;
+  --surface:    #1c1b18;
+  --surf-alt:   #252420;
+  --border:     #38352e;
+  --text:       #e8e4dc;
+  --muted:      #9e9a92;
+  --accent:     #6b9fda;
+  --accent-lt:  #1a2535;
+  --cta:        #e8894a;
+  --ok:         #4ade80;
+  --ok-bg:      #052e16;
+  --err:        #f87171;
+  --err-bg:     #1f0707;
+  --group:      #1a2030;
+  --modal-bg:   rgba(0,0,0,0.72);
+  --sh-sm:      0 1px 4px rgba(0,0,0,0.3);
+  --sh-lg:      0 16px 48px rgba(0,0,0,0.6);
+}
 
-    /* FOREST SCHOLAR - rich deep green */
-    [data-palette="forest"][data-theme="light"] {
-      --bg:          #eff4ee;
-      --surface:     #ffffff;
-      --surface-alt: #e2ede0;
-      --border:      #baced8;
-      --text:        #0e1e0e;
-      --text-muted:  #437240;
-      --accent:      #185c30;
-      --accent-2:    #8a5c00;
-      --correct:     #135a28;
-      --correct-bg:  #d5f0dc;
-      --wrong:       #8a1414;
-      --wrong-bg:    #fce8e8;
-      --btn-text:    #ffffff;
-      --group-row:   #d8ecda;
-      --shadow:      0 2px 10px rgba(24,92,48,0.08);
-    }
-    [data-palette="forest"][data-theme="dark"] {
-      --bg:          #060e07;
-      --surface:     #0d1c0e;
-      --surface-alt: #132515;
-      --border:      #1c3620;
-      --text:        #c0e8c0;
-      --text-muted:  #5a9e58;
-      --accent:      #44d870;
-      --accent-2:    #f8c030;
-      --correct:     #44d870;
-      --correct-bg:  #041c08;
-      --wrong:       #f07070;
-      --wrong-bg:    #1a0505;
-      --btn-text:    #060e07;
-      --group-row:   #0a1a0c;
-      --shadow:      0 2px 14px rgba(0,0,0,0.45);
-    }
+/* NAVY PRO — slate ink on cool white */
+[data-palette="navy"][data-theme="light"] {
+  --bg:         #eef2f8;
+  --surface:    #ffffff;
+  --surf-alt:   #e0e8f4;
+  --border:     #c4d0e4;
+  --text:       #07122a;
+  --muted:      #3e5880;
+  --accent:     #0b3068;
+  --accent-lt:  #dce8f7;
+  --cta:        #b54708;
+  --ok:         #064e3b;
+  --ok-bg:      #d1fae5;
+  --err:        #881337;
+  --err-bg:     #ffe4e6;
+  --group:      #d6e4f7;
+  --modal-bg:   rgba(7,18,42,0.62);
+  --sh-sm:      0 1px 3px rgba(11,48,104,0.08);
+  --sh-lg:      0 16px 48px rgba(11,48,104,0.20);
+}
+[data-palette="navy"][data-theme="dark"] {
+  --bg:         #040c1c;
+  --surface:    #0b1a30;
+  --surf-alt:   #102040;
+  --border:     #1a3050;
+  --text:       #c8d8f0;
+  --muted:      #6080a8;
+  --accent:     #60a8f8;
+  --accent-lt:  #071628;
+  --cta:        #f97316;
+  --ok:         #34d399;
+  --ok-bg:      #031b12;
+  --err:        #fb7185;
+  --err-bg:     #1e0510;
+  --group:      #071424;
+  --modal-bg:   rgba(0,0,0,0.76);
+  --sh-sm:      0 1px 4px rgba(0,0,0,0.4);
+  --sh-lg:      0 16px 48px rgba(0,0,0,0.7);
+}
 
-    /* ── BASE ─────────────────────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* FOREST SCHOLAR — deep green + gold on warm cream */
+[data-palette="forest"][data-theme="light"] {
+  --bg:         #f2f5ee;
+  --surface:    #ffffff;
+  --surf-alt:   #e4ede0;
+  --border:     #c0d0b8;
+  --text:       #0e1c0a;
+  --muted:      #3d6035;
+  --accent:     #1a4d28;
+  --accent-lt:  #d8ecd0;
+  --cta:        #92600a;
+  --ok:         #14532d;
+  --ok-bg:      #dcfce7;
+  --err:        #881337;
+  --err-bg:     #ffe4e6;
+  --group:      #d8ecda;
+  --modal-bg:   rgba(14,28,10,0.60);
+  --sh-sm:      0 1px 3px rgba(26,77,40,0.08);
+  --sh-lg:      0 16px 48px rgba(26,77,40,0.18);
+}
+[data-palette="forest"][data-theme="dark"] {
+  --bg:         #060d06;
+  --surface:    #0d1a0d;
+  --surf-alt:   #142014;
+  --border:     #1e3020;
+  --text:       #bce0b8;
+  --muted:      #5a9055;
+  --accent:     #4dc870;
+  --accent-lt:  #071408;
+  --cta:        #fbbf24;
+  --ok:         #4ade80;
+  --ok-bg:      #052e16;
+  --err:        #f87171;
+  --err-bg:     #1f0707;
+  --group:      #0a180a;
+  --modal-bg:   rgba(0,0,0,0.76);
+  --sh-sm:      0 1px 4px rgba(0,0,0,0.4);
+  --sh-lg:      0 16px 48px rgba(0,0,0,0.7);
+}
 
-    body {
-      font-family: 'Georgia', serif;
-      font-size: 16px; /* 12pt minimum */
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      transition: background 0.22s, color 0.22s;
-      line-height: 1.6;
-    }
+/* ═══════════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    #app { width: 100%; padding: 24px 48px 64px; }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+  -webkit-font-smoothing: antialiased;
+}
 
-    /* ── HEADER ───────────────────────────────────────────────────────────── */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--border);
-    }
-    .header-title { display: flex; flex-direction: column; }
-    .header-eyebrow {
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    header h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-    .header-controls { display: flex; align-items: center; gap: 10px; }
-    .ctrl-btn, .ctrl-select {
-      font-family: system-ui, sans-serif;
-      font-size: 13px;
-      padding: 7px 13px;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      background: var(--surface-alt);
-      color: var(--text);
-      cursor: pointer;
-      transition: background 0.18s;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    .ctrl-select { padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
-    .ctrl-btn:hover, .ctrl-select:hover { background: var(--border); }
+#app {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px) 72px;
+}
 
-    /* ── VIEWS ────────────────────────────────────────────────────────────── */
-    .view { display: none; }
-    .view.active { display: block; }
+/* ═══════════════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  padding: 16px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* ── CARDS ────────────────────────────────────────────────────────────── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px 32px;
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
-      transition: background 0.22s, border-color 0.22s;
-    }
-    .card h2 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .car-badge {
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      background: var(--accent);
-      color: white;
-      padding: 3px 9px;
-      border-radius: 3px;
-    }
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 36px 40px 32px;
+  width: min(520px, 100%);
+  position: relative;
+  transform: translateY(14px) scale(0.98);
+  transition: transform 0.22s ease;
+  box-shadow: var(--sh-lg);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
 
-    /* ── FORMS ────────────────────────────────────────────────────────────── */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field label {
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .field input {
-      font-family: system-ui, sans-serif;
-      font-size: 16px;
-      padding: 10px 13px;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      background: var(--bg);
-      color: var(--text);
-      transition: border-color 0.15s, box-shadow 0.15s, background 0.22s;
-      width: 100%;
-    }
-    .field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--surf-alt); color: var(--text); }
 
-    /* ── BUTTONS ──────────────────────────────────────────────────────────── */
-    .btn {
-      font-family: system-ui, sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 10px 22px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
-      letter-spacing: 0.01em;
-    }
-    .btn:active:not(:disabled) { transform: scale(0.97); }
-    .btn:disabled { opacity: 0.36; cursor: not-allowed; }
-    .btn-primary  { background: var(--accent);    color: var(--btn-text); }
-    .btn-primary:hover:not(:disabled)  { opacity: 0.87; }
-    .btn-validate {
-      background: var(--surface-alt);
-      color: var(--text);
-      border: 1.5px solid var(--border);
-      margin-top: 16px;
-      font-size: 14px;
-    }
-    .btn-validate:hover:not(:disabled) { background: var(--border); }
-    .btn-submit {
-      background: var(--accent-2);
-      color: var(--btn-text);
-      font-size: 16px;
-      padding: 13px 44px;
-    }
-    .btn-submit:hover:not(:disabled) { opacity: 0.87; }
+.modal-icon  { font-size: 36px; display: block; margin-bottom: 10px; }
+.modal-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.modal-body  { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 12px; }
+.modal-body strong { color: var(--text); }
+.modal-body kbd {
+  font-family: monospace;
+  background: var(--surf-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 12px;
+  color: var(--text);
+}
 
-    /* ── TABLE ────────────────────────────────────────────────────────────── */
-    .table-wrap { overflow-x: auto; margin-bottom: 8px; }
-    table { width: 100%; border-collapse: collapse; font-size: 15px; }
-    thead th {
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 2px solid var(--border);
-      background: var(--surface-alt);
-      white-space: nowrap;
-    }
-    tbody tr { border-bottom: 1px solid var(--border); }
-    tbody tr:last-child { border-bottom: none; }
-    tbody td { padding: 9px 12px; vertical-align: middle; }
-    .td-mono {
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    .td-lender {
-      font-family: system-ui, sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      min-width: 170px;
-    }
-    /* Term group separator */
-    tr.group-row td {
-      background: var(--group-row);
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding: 7px 12px;
-    }
+.modal-step {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.modal-step-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
 
-    /* ── STUDENT INPUTS ───────────────────────────────────────────────────── */
-    .student-input {
-      width: 112px;
-      font-family: 'Courier New', monospace;
-      font-size: 14px;
-      padding: 7px 9px;
-      border: 1.5px solid var(--border);
-      border-radius: 5px;
-      background: var(--bg);
-      color: var(--text);
-      transition: border-color 0.15s, background 0.2s;
-      display: block;
-    }
-    .student-input:focus { outline: none; border-color: var(--accent); }
-    .student-input.correct { border-color: var(--correct); background: var(--correct-bg); }
-    .student-input.wrong   { border-color: var(--wrong);   background: var(--wrong-bg);   }
-    .answer-hint {
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      color: var(--wrong);
-      margin-top: 3px;
-      display: none;
-    }
+.modal-tip {
+  background: var(--accent-lt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 5px 5px 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  margin: 14px 0;
+  line-height: 1.55;
+}
+.modal-tip strong { color: var(--accent); }
 
-    /* ── PROGRESS BAR ─────────────────────────────────────────────────────── */
-    .progress-bar {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-    }
-    .progress-label {
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--text-muted);
-      min-width: 76px;
-    }
-    .progress-value {
-      font-family: 'Courier New', monospace;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .progress-pct {
-      font-family: system-ui, sans-serif;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    .progress-track {
-      flex: 1;
-      height: 10px;
-      background: var(--border);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      border-radius: 5px;
-      transition: width 0.4s ease;
-      width: 0%;
-    }
+.modal-divider { height: 1px; background: var(--border); margin: 18px 0; }
 
-    /* ── SECTION STATUS BADGE ─────────────────────────────────────────────── */
-    .section-status {
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-left: auto;
-    }
-    .section-status.validated  { background: var(--correct-bg); color: var(--correct); }
-    .section-status.needs-work { background: var(--wrong-bg);   color: var(--wrong);   }
-    .section-status.stale      { background: var(--surface-alt);color: var(--text-muted); }
+.modal-score {
+  font-family: 'Courier New', monospace;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  margin: 8px 0 2px;
+  display: block;
+}
+.modal-score-sub { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 14px; }
 
-    /* ── SUBMIT AREA ──────────────────────────────────────────────────────── */
-    .submit-area { text-align: center; padding: 28px; border-top: 2px solid var(--border); }
-    .submit-note {
-      font-family: system-ui, sans-serif;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 10px;
-    }
-    .alert {
-      font-family: system-ui, sans-serif;
-      font-size: 14px;
-      padding: 12px 18px;
-      border-radius: 6px;
-      margin-top: 14px;
-      display: inline-block;
-    }
-    .alert-error { background: var(--wrong-bg); color: var(--wrong); border: 1px solid var(--wrong); }
+.modal-q {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.modal-q-num {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 20px;
+}
 
-    /* ── SETUP ────────────────────────────────────────────────────────────── */
-    .setup-intro {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      padding-left: 16px;
-      border-left: 3px solid var(--accent);
-    }
-    .setup-intro a { color: var(--accent); font-weight: 600; }
-    .setup-divider {
-      font-family: system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin: 22px 0 14px;
-      padding-bottom: 7px;
-      border-bottom: 1px solid var(--border);
-    }
+.modal-local-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.modal-local-note strong { color: var(--text); }
 
-    /* ── INSTRUCTIONS BANNER ──────────────────────────────────────────────── */
-    .instructions {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-      padding: 14px 20px;
-      margin-bottom: 24px;
-      font-size: 16px;
-      color: var(--text-muted);
-    }
-    .instructions a { color: var(--accent); font-weight: 700; }
+.modal-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 11px 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  text-align: center;
+}
+.modal-btn:hover { opacity: 0.88; }
 
-    /* ── SUCCESS VIEW ─────────────────────────────────────────────────────── */
-    .success-hero {
-      text-align: center;
-      padding: 40px 32px 24px;
-    }
-    .success-icon { font-size: 52px; margin-bottom: 14px; }
-    .success-hero h2 {
-      font-size: 28px;
-      margin-bottom: 4px;
-      justify-content: center;
-    }
-    .final-score-big {
-      font-family: 'Courier New', monospace;
-      font-size: 54px;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 14px 0 4px;
-    }
-    .success-sub { font-size: 16px; color: var(--text-muted); }
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════ */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 2px;
+}
+header h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.header-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    /* Success sortable tables */
-    .success-tables {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 28px;
-    }
-    .success-table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .success-table-title {
-      font-family: system-ui, sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding: 13px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface-alt);
-    }
-    .sortable-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .sortable-table th {
-      font-family: system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--text-muted);
-      padding: 9px 10px;
-      text-align: left;
-      border-bottom: 2px solid var(--border);
-      background: var(--surface-alt);
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-      transition: color 0.15s;
-    }
-    .sortable-table th:hover { color: var(--accent); }
-    .sortable-table th.sort-asc::after  { content: ' ↑'; color: var(--accent); }
-    .sortable-table th.sort-desc::after { content: ' ↓'; color: var(--accent); }
-    .sortable-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--border);
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .sortable-table td.td-name {
-      font-family: system-ui, sans-serif;
-      font-weight: 600;
-      color: var(--text);
-      font-size: 13px;
-    }
-    .sortable-table tr:last-child td { border-bottom: none; }
+.ctrl-select, .ctrl-btn {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.ctrl-select:hover, .ctrl-btn:hover { background: var(--surf-alt); }
+.ctrl-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+}
+.ctrl-select:focus, .ctrl-btn:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ═══════════════════════════════════════════════════════════
+   VIEWS
+═══════════════════════════════════════════════════════════ */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ═══════════════════════════════════════════════════════════
+   SETUP VIEW
+═══════════════════════════════════════════════════════════ */
+.setup-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: clamp(18px, 3vw, 32px);
+  box-shadow: var(--sh-sm);
+  max-width: 560px;
+}
+.setup-card h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.setup-intro {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+.setup-intro a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.setup-intro a:hover { text-decoration: underline; }
+.setup-section { margin-bottom: 22px; }
+.setup-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field input {
+  font-family: inherit;
+  font-size: 15px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════ */
+.btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 20px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: 0.36; cursor: not-allowed; }
+.btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { opacity: 0.88; }
+
+.btn-validate {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+  font-size: 13px;
+  padding: 7px 15px;
+}
+.btn-validate:hover:not(:disabled) { background: var(--surf-alt); }
+
+.btn-submit {
+  background: var(--cta);
+  color: #fff;
+  font-size: 15px;
+  padding: 12px 40px;
+}
+.btn-submit:hover:not(:disabled) { opacity: 0.88; }
+
+/* ═══════════════════════════════════════════════════════════
+   PRACTICE VIEW
+═══════════════════════════════════════════════════════════ */
+.instructions-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--accent-lt);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+.instructions-bar a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.instructions-bar a:hover { text-decoration: underline; }
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.progress-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  min-width: 70px;
+}
+.progress-nums {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.progress-pct { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.progress-track {
+  flex: 1;
+  min-width: 80px;
+  height: 8px;
+  background: var(--surf-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.35s ease;
+  width: 0%;
+}
+
+/* Car cards */
+.car-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: var(--sh-sm);
+  overflow: hidden;
+}
+.car-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surf-alt);
+  flex-wrap: wrap;
+}
+.car-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.car-card-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.section-status {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: none;
+  white-space: nowrap;
+}
+.section-status.validated  { background: var(--ok-bg);   color: var(--ok);   display: inline-block; }
+.section-status.needs-work { background: var(--err-bg);  color: var(--err);  display: inline-block; }
+.section-status.stale      { background: var(--surf-alt);color: var(--muted);display: inline-block; border: 1px solid var(--border); }
+
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead th {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 9px 14px;
+  text-align: right;
+  background: var(--surf-alt);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+thead th.th-l { text-align: left; }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:last-child { border-bottom: none; }
+tbody td { padding: 8px 14px; vertical-align: middle; text-align: right; }
+tbody td.td-l { text-align: left; }
+
+.td-lender { font-size: 13px; font-weight: 600; color: var(--text); min-width: 155px; }
+.td-mono   { font-family: 'Courier New', monospace; font-size: 13px; color: var(--muted); }
+
+tr.group-row td {
+  background: var(--group);
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: left !important;
+}
+
+.student-input {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  width: 106px;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  text-align: right;
+  transition: border-color 0.15s, background 0.15s;
+  display: inline-block;
+}
+.student-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.student-input.correct { border-color: var(--ok);  background: var(--ok-bg);  }
+.student-input.wrong   { border-color: var(--err); background: var(--err-bg); }
+
+.answer-hint {
+  font-size: 11px;
+  color: var(--err);
+  display: none;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.car-card-footer {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  background: var(--surf-alt);
+}
+
+.submit-area {
+  text-align: center;
+  padding: 28px 20px;
+  border-top: 2px solid var(--border);
+}
+.submit-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+.alert {
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 5px;
+  margin-top: 12px;
+  display: inline-block;
+}
+.alert-error {
+  background: var(--err-bg);
+  color: var(--err);
+  border: 1px solid color-mix(in srgb, var(--err) 30%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SUCCESS VIEW
+═══════════════════════════════════════════════════════════ */
+.success-inner {
+  width: min(67vw, 1100px);
+  margin: 0 auto;
+}
+
+.local-data-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--accent-lt);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.55;
+}
+.local-data-banner strong { color: var(--accent); }
+
+.success-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.s-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+}
+.s-card-title {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surf-alt);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.s-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.s-table th {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 2px solid var(--border);
+  background: var(--surf-alt);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.s-table th:first-child { text-align: left; }
+.s-table th:hover { color: var(--accent); }
+.s-table th.sort-asc::after  { content: ' \2191'; color: var(--accent); }
+.s-table th.sort-desc::after { content: ' \2193'; color: var(--accent); }
+.s-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
+.s-table td:first-child {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+.s-table tr:last-child td { border-bottom: none; }
+.s-table tr:hover td { background: var(--surf-alt); }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — desktop split-screen support (640px+)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1000px) {
+  .success-inner { width: 100%; }
+  .success-tables { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .progress-track { min-width: 60px; }
+  .section-status { margin-left: 0; }
+  .student-input { width: 90px; }
+  thead th, tbody td { padding: 7px 10px; }
+}
+@media (max-width: 680px) {
+  header { padding: 14px 0 12px; }
+  .setup-card { padding: 16px; }
+  .car-card-header { padding: 10px 14px; }
+  .car-card-footer { padding: 10px 14px; }
+  .ctrl-select, .ctrl-btn { font-size: 12px; padding: 5px 9px; }
+  .modal-box { padding: 26px 24px 22px; }
+}
+
   </style>
 </head>
 <body>
+
+<!-- ══ MODAL ════════════════════════════════════════════════════════════════ -->
+<div id="modal-overlay" class="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
 <div id="app">
 
   <header>
-    <div class="header-title">
+    <div>
       <span class="header-eyebrow">Personal Finance | Weaver</span>
       <h1>Auto Loan Practice</h1>
     </div>
     <div class="header-controls">
-      <select class="ctrl-select" onchange="setPalette(this.value)" title="Color Theme">
+      <select class="ctrl-select" onchange="setPalette(this.value)" title="Color theme">
         <option value="classic">Theme: Classic</option>
         <option value="navy">Theme: Navy</option>
         <option value="forest">Theme: Forest</option>
       </select>
-      <button id="dark-toggle" class="ctrl-btn" onclick="toggleDark()">🌙 Dark</button>
+      <button class="ctrl-btn" id="dark-toggle" onclick="toggleDark()">&#127769; Dark</button>
     </div>
   </header>
 
-  <!-- ══ SETUP VIEW ══════════════════════════════════════════════════════════ -->
+  <!-- ══ SETUP ═══════════════════════════════════════════════════════════════ -->
   <div id="view-setup" class="view active">
-    <div class="card">
+    <div class="setup-card">
       <h2>Student Info</h2>
       <p class="setup-intro">
-        Use the <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener">NGPF Amortization Calculator</a>
+        You will use the
+        <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener">NGPF Amortization Calculator</a>
         to find the monthly payment and total interest for each loan offer on the next page.
+        Fill in your information below to get your loan offers.
       </p>
       <form id="setup-form" onsubmit="handleSetupSubmit(event)">
-        <div class="form-grid">
-          <div class="field" style="grid-column:1/-1">
-            <label for="studentName">Your Full Name</label>
+        <div class="setup-section">
+          <div class="setup-section-label">Your Name</div>
+          <div class="field">
+            <label for="studentName">Full Name</label>
             <input type="text" id="studentName" placeholder="First Last" autocomplete="off" />
           </div>
         </div>
 
-        <div class="setup-divider">Young Pro Car</div>
-        <div class="form-grid">
-          <div class="field">
-            <label for="car1Name">Year Make Model</label>
-            <input type="text" id="car1Name" placeholder="e.g. 2022 Honda Civic" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label for="car1Principal">Loan Principal ($)</label>
-            <input type="number" id="car1Principal" placeholder="e.g. 18500" min="1" step="0.01" />
+        <div class="setup-section">
+          <div class="setup-section-label">Young Pro Car</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="car1Name">Year Make Model</label>
+              <input type="text" id="car1Name" placeholder="e.g. 2022 Honda Civic" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="car1Principal">Loan Principal ($)</label>
+              <input type="number" id="car1Principal" placeholder="e.g. 18500" min="1" step="0.01" />
+            </div>
           </div>
         </div>
 
-        <div class="setup-divider">Dream Car</div>
-        <div class="form-grid">
-          <div class="field">
-            <label for="car2Name">Year Make Model</label>
-            <input type="text" id="car2Name" placeholder="e.g. 2024 BMW 330i" autocomplete="off" />
-          </div>
-          <div class="field">
-            <label for="car2Principal">Loan Principal ($)</label>
-            <input type="number" id="car2Principal" placeholder="e.g. 45000" min="1" step="0.01" />
+        <div class="setup-section">
+          <div class="setup-section-label">Dream Car</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="car2Name">Year Make Model</label>
+              <input type="text" id="car2Name" placeholder="e.g. 2024 BMW 330i" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="car2Principal">Loan Principal ($)</label>
+              <input type="number" id="car2Principal" placeholder="e.g. 45000" min="1" step="0.01" />
+            </div>
           </div>
         </div>
 
         <div id="setup-error" class="alert alert-error" style="display:none;"></div>
-        <div style="margin-top:24px;">
-          <button type="submit" class="btn btn-primary">Start Practice →</button>
+        <div style="margin-top:20px;">
+          <button type="submit" class="btn btn-primary">Start Practice &#8594;</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ══ PRACTICE VIEW ═══════════════════════════════════════════════════════ -->
+  <!-- ══ PRACTICE ════════════════════════════════════════════════════════════ -->
   <div id="view-practice" class="view">
 
-    <div class="instructions">
-      Click <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener"><strong>THIS LINK</strong></a>
-      to use the NGPF Amortization Calculator. Enter the <strong>Monthly Payment</strong> and
-      <strong>Total Interest Paid</strong> for every offer below. Validate each car section,
-      then submit once all answers are correct.
+    <div class="instructions-bar">
+      &#129518;&nbsp; Click
+      <a href="https://www.ngpf.org/understanding-amortization/" target="_blank" rel="noopener"><strong>THIS LINK</strong></a>
+      to use the NGPF Amortization Calculator &mdash; enter each loan&rsquo;s amount, rate, and term, then record the
+      <strong>Monthly Payment</strong> and <strong>Total Interest</strong> below.
     </div>
 
-    <div class="progress-bar">
+    <div class="progress-row">
       <span class="progress-label">Progress</span>
-      <span class="progress-value" id="progress-num">0</span>
-      <span class="progress-pct" id="progress-pct">/ 36 &nbsp;(0%)</span>
+      <span class="progress-nums" id="progress-num">0</span>
+      <span class="progress-pct" id="progress-pct">/ 36 &nbsp;&middot;&nbsp; 0%</span>
       <div class="progress-track">
         <div class="progress-fill" id="progress-fill"></div>
       </div>
     </div>
 
     <!-- Car 1 -->
-    <div class="card">
-      <h2>
+    <div class="car-card">
+      <div class="car-card-header">
         <span class="car-badge">Car 1</span>
-        <span id="car1-header-name"></span>
-        <span class="section-status" id="car1-status" style="display:none;"></span>
-      </h2>
+        <span class="car-card-title" id="car1-header-name"></span>
+        <span class="section-status" id="car1-status"></span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Offer</th>
-              <th>Principal</th>
-              <th>APR</th>
+              <th class="th-l">Lender</th>
+              <th class="th-l">APR</th>
               <th>Term</th>
+              <th>Principal</th>
               <th>Monthly Payment ($)</th>
               <th>Total Interest ($)</th>
             </tr>
@@ -638,24 +893,26 @@
           <tbody id="car1-tbody"></tbody>
         </table>
       </div>
-      <button class="btn btn-validate" onclick="validateSection(0)">✓ Validate Car 1 Section</button>
+      <div class="car-card-footer">
+        <button class="btn btn-validate" onclick="validateSection(0)">&#10003; Validate Car 1 Section</button>
+      </div>
     </div>
 
     <!-- Car 2 -->
-    <div class="card">
-      <h2>
+    <div class="car-card">
+      <div class="car-card-header">
         <span class="car-badge">Car 2</span>
-        <span id="car2-header-name"></span>
-        <span class="section-status" id="car2-status" style="display:none;"></span>
-      </h2>
+        <span class="car-card-title" id="car2-header-name"></span>
+        <span class="section-status" id="car2-status"></span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Offer</th>
-              <th>Principal</th>
-              <th>APR</th>
+              <th class="th-l">Lender</th>
+              <th class="th-l">APR</th>
               <th>Term</th>
+              <th>Principal</th>
               <th>Monthly Payment ($)</th>
               <th>Total Interest ($)</th>
             </tr>
@@ -663,10 +920,11 @@
           <tbody id="car2-tbody"></tbody>
         </table>
       </div>
-      <button class="btn btn-validate" onclick="validateSection(1)">✓ Validate Car 2 Section</button>
+      <div class="car-card-footer">
+        <button class="btn btn-validate" onclick="validateSection(1)">&#10003; Validate Car 2 Section</button>
+      </div>
     </div>
 
-    <!-- Submit -->
     <div class="submit-area">
       <button class="btn btn-submit" id="btn-submit" disabled onclick="submitResults()">
         Submit All Results
@@ -676,14 +934,15 @@
     </div>
   </div>
 
-  <!-- ══ SUCCESS VIEW ════════════════════════════════════════════════════════ -->
+  <!-- ══ SUCCESS ══════════════════════════════════════════════════════════════ -->
   <div id="view-success" class="view">
-    <div class="card">
-      <div class="success-hero">
-        <div class="success-icon">🎉</div>
-        <h2>Submission Complete!</h2>
-        <div class="final-score-big" id="success-score">36</div>
-        <p class="success-sub" id="success-sub">out of 36 — 100%</p>
+    <div class="success-inner">
+      <div class="local-data-banner">
+        &#128205;
+        <span>
+          <strong>Local Data:</strong> The interest rates in this activity are based on real offers from
+          lenders in the <strong>Greenville, SC area</strong>. These are actual options available in your community.
+        </span>
       </div>
       <div class="success-tables" id="success-tables"></div>
     </div>
@@ -692,93 +951,16 @@
 </div><!-- /#app -->
 
 <script>
-// ── FORM SUBMISSION CONFIG ───────────────────────────────────────────────────
-// Submissions go to this Google Form endpoint (no-cors, urlencoded).
-const FORM_SUBMIT_URL = "https://docs.google.com/forms/d/e/1FAIpQLSebmgLxVP5ZKNgXLxSPy8sc0VlcT-Bbx6PoylMFb3F_tBe9FA/formResponse";
+// ═══════════════════════════════════════════════════════════
+// TEACHER: replace with your Apps Script Web App URL
+// Deploy as: Execute as Me | Who has access: Anyone
+// ═══════════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = "https://script.google.com/a/macros/greermiddlecollege.org/s/AKfycbx0FgENXzze0I6MzEGPTIOkzCjYF3LnTIzt8I5r3gxwqzyYxvdOQxj9f8dynH6Tkm4KVw/exec";
 
-// Entry IDs map to Google Form field IDs (generated by createForm.gs).
-// Each field is submitted as: entry.{ID}=value
-const FORM_ENTRY_IDS = {
-  "studentName":434795283,"timestamp":7435269,"finalScore":1495183095,
-  "car1Name":747218923,"car1Principal":1816003232,
-  "c1o1Lender":638931597,"c1o1Term":1102214972,"c1o1APR":390418203,
-  "c1o1CorrectPayment":1371524691,"c1o1CorrectInterest":1087720242,
-  "c1o1StudentPayment":1607048809,"c1o1StudentInterest":1411952982,
-  "c1o1PaymentCorrect":1026441884,"c1o1InterestCorrect":1057645468,
-  "c1o2Lender":276220389,"c1o2Term":1898517460,"c1o2APR":1280661083,
-  "c1o2CorrectPayment":1234231336,"c1o2CorrectInterest":1140783744,
-  "c1o2StudentPayment":75112235,"c1o2StudentInterest":1380760637,
-  "c1o2PaymentCorrect":776276192,"c1o2InterestCorrect":322791961,
-  "c1o3Lender":2114149120,"c1o3Term":177529236,"c1o3APR":256620522,
-  "c1o3CorrectPayment":1023615267,"c1o3CorrectInterest":1068747304,
-  "c1o3StudentPayment":677396425,"c1o3StudentInterest":2027214489,
-  "c1o3PaymentCorrect":620889167,"c1o3InterestCorrect":1913587521,
-  "c1o4Lender":327251488,"c1o4Term":1207589034,"c1o4APR":1930584515,
-  "c1o4CorrectPayment":121156596,"c1o4CorrectInterest":1383361269,
-  "c1o4StudentPayment":2015684194,"c1o4StudentInterest":231116853,
-  "c1o4PaymentCorrect":1869763840,"c1o4InterestCorrect":1793099117,
-  "c1o5Lender":721812232,"c1o5Term":1988508032,"c1o5APR":134589586,
-  "c1o5CorrectPayment":1719029995,"c1o5CorrectInterest":1320651213,
-  "c1o5StudentPayment":1224970780,"c1o5StudentInterest":1345520856,
-  "c1o5PaymentCorrect":380293084,"c1o5InterestCorrect":1741040447,
-  "c1o6Lender":2146159893,"c1o6Term":1377524431,"c1o6APR":228506538,
-  "c1o6CorrectPayment":26293715,"c1o6CorrectInterest":1663039977,
-  "c1o6StudentPayment":1572831292,"c1o6StudentInterest":1619613777,
-  "c1o6PaymentCorrect":815230638,"c1o6InterestCorrect":442734222,
-  "c1o7Lender":1618876356,"c1o7Term":2089731251,"c1o7APR":321427673,
-  "c1o7CorrectPayment":62733846,"c1o7CorrectInterest":1754889587,
-  "c1o7StudentPayment":623720393,"c1o7StudentInterest":2072834893,
-  "c1o7PaymentCorrect":1087536304,"c1o7InterestCorrect":665842944,
-  "c1o8Lender":492933444,"c1o8Term":123155789,"c1o8APR":1632049379,
-  "c1o8CorrectPayment":78460169,"c1o8CorrectInterest":1573143759,
-  "c1o8StudentPayment":1370102362,"c1o8StudentInterest":625400150,
-  "c1o8PaymentCorrect":735005165,"c1o8InterestCorrect":1237104496,
-  "c1o9Lender":1448575780,"c1o9Term":2054376130,"c1o9APR":1817545843,
-  "c1o9CorrectPayment":1769857417,"c1o9CorrectInterest":572179233,
-  "c1o9StudentPayment":1809897194,"c1o9StudentInterest":666534597,
-  "c1o9PaymentCorrect":91598753,"c1o9InterestCorrect":1811635710,
-  "car2Name":523144976,"car2Principal":153839411,
-  "c2o1Lender":640334056,"c2o1Term":2035942217,"c2o1APR":124339056,
-  "c2o1CorrectPayment":827977214,"c2o1CorrectInterest":1099457653,
-  "c2o1StudentPayment":1090054629,"c2o1StudentInterest":238838479,
-  "c2o1PaymentCorrect":368588286,"c2o1InterestCorrect":1888474763,
-  "c2o2Lender":1856537329,"c2o2Term":204439994,"c2o2APR":1916649959,
-  "c2o2CorrectPayment":1067363285,"c2o2CorrectInterest":1268434693,
-  "c2o2StudentPayment":1272285643,"c2o2StudentInterest":1176100009,
-  "c2o2PaymentCorrect":1482353524,"c2o2InterestCorrect":1434095845,
-  "c2o3Lender":1038865155,"c2o3Term":1859766343,"c2o3APR":1905164170,
-  "c2o3CorrectPayment":92100725,"c2o3CorrectInterest":1579926559,
-  "c2o3StudentPayment":1230268441,"c2o3StudentInterest":2017784269,
-  "c2o3PaymentCorrect":673281201,"c2o3InterestCorrect":271194996,
-  "c2o4Lender":1579330290,"c2o4Term":1782218046,"c2o4APR":38214618,
-  "c2o4CorrectPayment":1082761658,"c2o4CorrectInterest":1478359121,
-  "c2o4StudentPayment":504594070,"c2o4StudentInterest":1326816635,
-  "c2o4PaymentCorrect":701719293,"c2o4InterestCorrect":1329955241,
-  "c2o5Lender":924188649,"c2o5Term":916838248,"c2o5APR":880858634,
-  "c2o5CorrectPayment":257380418,"c2o5CorrectInterest":740681473,
-  "c2o5StudentPayment":1176985773,"c2o5StudentInterest":819346812,
-  "c2o5PaymentCorrect":760293069,"c2o5InterestCorrect":79996437,
-  "c2o6Lender":2092677621,"c2o6Term":431011077,"c2o6APR":1472132198,
-  "c2o6CorrectPayment":539906249,"c2o6CorrectInterest":1030009176,
-  "c2o6StudentPayment":452877700,"c2o6StudentInterest":1840225371,
-  "c2o6PaymentCorrect":1068403381,"c2o6InterestCorrect":1937876616,
-  "c2o7Lender":1781286002,"c2o7Term":75340728,"c2o7APR":1229870586,
-  "c2o7CorrectPayment":248194079,"c2o7CorrectInterest":408430093,
-  "c2o7StudentPayment":285858267,"c2o7StudentInterest":1378674763,
-  "c2o7PaymentCorrect":1903948063,"c2o7InterestCorrect":1143056231,
-  "c2o8Lender":1687651475,"c2o8Term":2085732511,"c2o8APR":272629353,
-  "c2o8CorrectPayment":1711627478,"c2o8CorrectInterest":1682491390,
-  "c2o8StudentPayment":434643279,"c2o8StudentInterest":831195688,
-  "c2o8PaymentCorrect":1333215153,"c2o8InterestCorrect":1623539473,
-  "c2o9Lender":1898707783,"c2o9Term":461739058,"c2o9APR":1600907602,
-  "c2o9CorrectPayment":1110735779,"c2o9CorrectInterest":1963503287,
-  "c2o9StudentPayment":122249674,"c2o9StudentInterest":112824634,
-  "c2o9PaymentCorrect":1401897318,"c2o9InterestCorrect":1430685077
-};
-
-// ── LENDER DATA ──────────────────────────────────────────────────────────────
-// Tiers: "least" = credit unions (best rates), "average" = national banks,
-// "most" = online/marketplace lenders (highest rates)
+// ═══════════════════════════════════════════════════════════
+// LENDER DATA — real Greenville, SC area rates (tildes stripped)
+// Tiers: least = credit unions | average = banks | most = online/marketplace
+// ═══════════════════════════════════════════════════════════
 const LENDERS = [
   { name:"Greenville Federal CU",  apr36:5.24, apr48:5.49, apr60:5.74,  tier:"least"   },
   { name:"Truliant FCU",           apr36:5.39, apr48:5.50, apr60:5.64,  tier:"least"   },
@@ -790,145 +972,200 @@ const LENDERS = [
   { name:"Carvana",                apr36:7.50, apr48:9.50, apr60:11.00, tier:"most"    },
 ];
 
-const TERMS         = [36, 48, 60];    // loan term options in months
-const TOLERANCE     = 2.00;            // student answer within ±$2 = correct
-const TOTAL_FIELDS  = 36;              // 9 offers × 2 fields × 2 cars
+const TERMS        = [36, 48, 60];
+const TOLERANCE    = 2.00;
+const TOTAL_FIELDS = 36;       // 9 offers × 2 fields × 2 cars
 
-// ── APP STATE ────────────────────────────────────────────────────────────────
-// Centralized state - never read from DOM to determine logic
+// ═══════════════════════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════════════════════
 const app = {
-  studentName: "",
-  cars: [],                      // array of 2 car objects
-  sectionValidated:  [false, false],  // was Validate clicked since last edit?
-  sectionAllCorrect: [false, false],  // are ALL answers in this section correct?
-  score: 0,
+  studentName:       "",
+  cars:              [],
+  sectionValidated:  [false, false],
+  sectionAllCorrect: [false, false],
+  score:             0,
 };
 
-// ── THEME ────────────────────────────────────────────────────────────────────
-function setPalette(palette) {
-  document.documentElement.setAttribute("data-palette", palette);
-}
+let confettiEnabled = false;  // armed only after first Validate click
+let modalDismissOnOverlay = true;
+
+// ═══════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════
+function setPalette(p) { document.documentElement.setAttribute("data-palette", p); }
 function toggleDark() {
-  const html   = document.documentElement;
-  const isDark = html.getAttribute("data-theme") === "dark";
-  html.setAttribute("data-theme", isDark ? "light" : "dark");
-  document.getElementById("dark-toggle").textContent = isDark ? "🌙 Dark" : "☀️ Light";
+  const html = document.documentElement;
+  const dark = html.getAttribute("data-theme") === "dark";
+  html.setAttribute("data-theme", dark ? "light" : "dark");
+  document.getElementById("dark-toggle").textContent = dark ? "\uD83C\uDF19 Dark" : "\u2600\uFE0F Light";
 }
 
-// ── SETUP SUBMISSION ─────────────────────────────────────────────────────────
-function handleSetupSubmit(event) {
-  event.preventDefault(); // prevent page reload
-
-  const studentName   = document.getElementById("studentName").value.trim();
-  const car1Name      = document.getElementById("car1Name").value.trim();
-  const car1PrinRaw   = document.getElementById("car1Principal").value.trim();
-  const car2Name      = document.getElementById("car2Name").value.trim();
-  const car2PrinRaw   = document.getElementById("car2Principal").value.trim();
-  const errorEl       = document.getElementById("setup-error");
-
-  // Field presence check
-  if (!studentName || !car1Name || !car1PrinRaw || !car2Name || !car2PrinRaw) {
-    setError(errorEl, "Please fill in all fields before starting.");
-    return;
+// ═══════════════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════════════
+function showModal(html, { dismissOnOverlay = true } = {}) {
+  modalDismissOnOverlay = dismissOnOverlay;
+  document.getElementById("modal-body").innerHTML = html;
+  document.getElementById("modal-overlay").classList.add("open");
+}
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById("modal-overlay") && modalDismissOnOverlay) {
+    closeModal();
   }
+}
 
-  // Principal value checks
-  const p1 = Number(car1PrinRaw);
-  const p2 = Number(car2PrinRaw);
-  if (isNaN(p1) || p1 <= 0) { setError(errorEl, "Young Pro Car principal must be a positive number."); return; }
-  if (isNaN(p2) || p2 <= 0) { setError(errorEl, "Dream Car principal must be a positive number."); return; }
-  errorEl.style.display = "none";
+// ─── Modal HTML builders ───────────────────────────────────
+function warningModalHtml() {
+  return `
+    <span class="modal-icon">&#9888;&#65039;</span>
+    <div class="modal-title">Keep This Tab Open</div>
+    <p class="modal-body">
+      Your progress <strong>cannot be saved</strong>. If you refresh this page, press the Back button,
+      or close this tab, your loan offers and all your answers will be lost.
+    </p>
+    <p class="modal-body">
+      Complete the activity in <strong>one sitting</strong> and click
+      <strong>Submit All Results</strong> before closing this tab.
+    </p>
+    <button class="modal-btn" onclick="closeModal()">I Understand &mdash; Let&rsquo;s Begin</button>
+  `;
+}
 
-  // Initialize state
-  app.studentName        = studentName;
-  app.sectionValidated   = [false, false];
-  app.sectionAllCorrect  = [false, false];
-  app.score              = 0;
+function instructionsModalHtml() {
+  return `
+    <span class="modal-icon">&#127919;</span>
+    <div class="modal-title">Your Mission</div>
+    <div class="modal-step"><span class="modal-step-num">1</span><span>You have <strong>18 loan offers</strong> to calculate &mdash; 9 per car, in three term groups.</span></div>
+    <div class="modal-step"><span class="modal-step-num">2</span><span>Open the <strong>NGPF Amortization Calculator</strong> using the link in the blue bar above.</span></div>
+    <div class="modal-step"><span class="modal-step-num">3</span><span>Enter each offer&rsquo;s <strong>Amount</strong>, <strong>Interest Rate</strong>, and <strong>Term</strong> into the calculator.</span></div>
+    <div class="modal-step"><span class="modal-step-num">4</span><span>Record the <strong>Monthly Payment</strong> and <strong>Total Interest</strong> in the table.</span></div>
+    <div class="modal-step"><span class="modal-step-num">5</span><span>Validate each car section. All <strong>36 fields must be correct</strong> to submit.</span></div>
+    <div class="modal-tip">
+      &#128187; <strong>Use Split Screen!</strong> Put the calculator on one half of your screen
+      and this page on the other. Press <kbd>Win</kbd>&thinsp;+&thinsp;<kbd>&larr;</kbd> or
+      <kbd>&rarr;</kbd> to snap windows side by side.
+    </div>
+    <button class="modal-btn" onclick="closeModal()">Got It &mdash; Start Calculating</button>
+  `;
+}
+
+function successModalHtml(score) {
+  return `
+    <span class="modal-icon">&#127881;</span>
+    <div class="modal-title">You Finished!</div>
+    <span class="modal-score">${score}/36</span>
+    <div class="modal-score-sub">All 36 answers correct</div>
+    <div class="modal-divider"></div>
+    <div class="modal-title" style="font-size:16px; margin-bottom:12px;">Think About It</div>
+    <div class="modal-q"><span class="modal-q-num">1.</span><span>Who offered the loan with the lowest monthly payment for each car?</span></div>
+    <div class="modal-q"><span class="modal-q-num">2.</span><span>Which lender had the lowest total cost of the loan overall?</span></div>
+    <div class="modal-q"><span class="modal-q-num">3.</span><span>If you had to accept one loan, which would you choose &mdash; and why?</span></div>
+    <p class="modal-local-note">
+      &#128205; These rates are based on real offers from lenders in the <strong>Greenville, SC area</strong>.
+    </p>
+    <button class="modal-btn" onclick="closeModal()">See My Results Table</button>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SETUP
+// ═══════════════════════════════════════════════════════════
+function handleSetupSubmit(e) {
+  e.preventDefault();
+
+  const name    = document.getElementById("studentName").value.trim();
+  const car1n   = document.getElementById("car1Name").value.trim();
+  const car1r   = document.getElementById("car1Principal").value.trim();
+  const car2n   = document.getElementById("car2Name").value.trim();
+  const car2r   = document.getElementById("car2Principal").value.trim();
+  const errEl   = document.getElementById("setup-error");
+
+  if (!name || !car1n || !car1r || !car2n || !car2r) {
+    return setErr(errEl, "Please fill in all fields before starting.");
+  }
+  const p1 = Number(car1r), p2 = Number(car2r);
+  if (isNaN(p1) || p1 <= 0) return setErr(errEl, "Young Pro Car principal must be a positive number.");
+  if (isNaN(p2) || p2 <= 0) return setErr(errEl, "Dream Car principal must be a positive number.");
+  errEl.style.display = "none";
+
+  app.studentName       = name;
+  app.sectionValidated  = [false, false];
+  app.sectionAllCorrect = [false, false];
+  app.score             = 0;
   app.cars = [
-    { carName: car1Name, principal: p1, offers: generateOffersForCar(p1) },
-    { carName: car2Name, principal: p2, offers: generateOffersForCar(p2) },
+    { carName: car1n, principal: p1, offers: genOffers(p1) },
+    { carName: car2n, principal: p2, offers: genOffers(p2) },
   ];
 
-  renderPracticeView();
+  renderPractice();
   showView("view-practice");
+  showModal(instructionsModalHtml());
 }
+function setErr(el, msg) { el.textContent = msg; el.style.display = "block"; }
 
-function setError(el, msg) {
-  el.textContent    = msg;
-  el.style.display  = "block";
-}
-
-// ── OFFER GENERATION ─────────────────────────────────────────────────────────
-// For each term (36, 48, 60): pick 1 random lender from each tier.
-// That's 3 tiers × 3 terms = 9 offers per car.
-// Within each term group, shuffle tier order so position doesn't hint at quality.
-function generateOffersForCar(principal) {
+// ═══════════════════════════════════════════════════════════
+// OFFER GENERATION — 3 terms × 1 lender per tier = 9 per car
+// ═══════════════════════════════════════════════════════════
+function genOffers(principal) {
   const byTier = {
     least:   LENDERS.filter(l => l.tier === "least"),
     average: LENDERS.filter(l => l.tier === "average"),
     most:    LENDERS.filter(l => l.tier === "most"),
   };
-
   const offers = [];
   for (const term of TERMS) {
-    const aprKey = `apr${term}`; // "apr36", "apr48", or "apr60"
-
-    // Pick one lender from each tier for this term group
-    const group = [
-      pickRandom(byTier.least),
-      pickRandom(byTier.average),
-      pickRandom(byTier.most),
-    ];
-    shuffleInPlace(group); // randomize tier order within the group
-
+    const key   = `apr${term}`;
+    const group = [pickRandom(byTier.least), pickRandom(byTier.average), pickRandom(byTier.most)];
+    shuffle(group);
     for (const lender of group) {
-      const apr = lender[aprKey];
-      const { payment, interest } = calcLoan(principal, apr, term);
+      const { pay, interest } = calcLoan(principal, lender[key], term);
       offers.push({
         lenderName:      lender.name,
         termMonths:      term,
-        apr:             apr,
-        correctPayment:  roundCents(payment),
-        correctInterest: roundCents(interest),
+        apr:             lender[key],
+        correctPayment:  rc(pay),
+        correctInterest: rc(interest),
       });
     }
   }
-  return offers; // 9 total, ordered by term group (36/36/36 → 48/48/48 → 60/60/60)
+  return offers;
 }
-
-function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-function shuffleInPlace(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
 }
 
-// ── LOAN MATH ────────────────────────────────────────────────────────────────
-// Standard amortization: M = P * [r(1+r)^n] / [(1+r)^n - 1]
-// r = monthly rate (APR / 100 / 12),  n = term in months
-function calcLoan(principal, annualPct, months) {
-  const r      = annualPct / 100 / 12;
-  const factor = Math.pow(1 + r, months);
-  const payment = principal * (r * factor) / (factor - 1);
-  return { payment, interest: (payment * months) - principal };
+// ═══════════════════════════════════════════════════════════
+// LOAN MATH — M = P[r(1+r)^n]/[(1+r)^n-1]
+// ═══════════════════════════════════════════════════════════
+function calcLoan(P, apr, n) {
+  const r      = apr / 100 / 12;
+  const factor = Math.pow(1 + r, n);
+  const pay    = P * (r * factor) / (factor - 1);
+  return { pay, interest: (pay * n) - P };
 }
+function rc(v) { return Math.round(v * 100) / 100; }
 
-// Round to exactly 2 decimal places - avoids floating-point drift in comparisons
-function roundCents(v) { return Math.round(v * 100) / 100; }
+// ═══════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════
+function renderPractice() {
+  confettiEnabled = false;
 
-// ── RENDER PRACTICE VIEW ──────────────────────────────────────────────────────
-function renderPracticeView() {
   app.cars.forEach((car, ci) => {
-    document.getElementById(`car${ci + 1}-header-name`).textContent = car.carName;
-    const tbody = document.getElementById(`car${ci + 1}-tbody`);
+    document.getElementById(`car${ci+1}-header-name`).textContent = car.carName;
+    const tbody = document.getElementById(`car${ci+1}-tbody`);
     tbody.innerHTML = "";
 
     let lastTerm = null;
     car.offers.forEach((offer, oi) => {
-      // Insert group separator when the term changes
       if (offer.termMonths !== lastTerm) {
         lastTerm = offer.termMonths;
         const sep = document.createElement("tr");
@@ -937,78 +1174,71 @@ function renderPracticeView() {
         tbody.appendChild(sep);
       }
 
-      const payId  = `c${ci}_o${oi}_pay`;
-      const intId  = `c${ci}_o${oi}_int`;
-      const hpId   = `h_${payId}`;
-      const hiId   = `h_${intId}`;
+      const payId = `c${ci}_o${oi}_pay`;
+      const intId = `c${ci}_o${oi}_int`;
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td class="td-lender">${esc(offer.lenderName)}</td>
-        <td class="td-mono">$${fmt(car.principal)}</td>
-        <td class="td-mono">${offer.apr}%</td>
+        <td class="td-lender td-l">${esc(offer.lenderName)}</td>
+        <td class="td-mono td-l">${offer.apr}%</td>
         <td class="td-mono">${offer.termMonths} mo</td>
-        <td>
+        <td class="td-mono">$${fmt(car.principal)}</td>
+        <td style="text-align:right">
           <input type="number" step="0.01" class="student-input"
-            id="${payId}" placeholder="0.00"
-            oninput="onEdit(${ci})" />
-          <span class="answer-hint" id="${hpId}"></span>
+            id="${payId}" placeholder="0.00" oninput="onEdit(${ci})" />
+          <span class="answer-hint" id="h_${payId}"></span>
         </td>
-        <td>
+        <td style="text-align:right">
           <input type="number" step="0.01" class="student-input"
-            id="${intId}" placeholder="0.00"
-            oninput="onEdit(${ci})" />
-          <span class="answer-hint" id="${hiId}"></span>
+            id="${intId}" placeholder="0.00" oninput="onEdit(${ci})" />
+          <span class="answer-hint" id="h_${intId}"></span>
         </td>
       `;
       tbody.appendChild(tr);
     });
+
+    const statusEl = document.getElementById(`car${ci+1}-status`);
+    statusEl.textContent = "";
+    statusEl.className   = "section-status";
   });
 
   refreshProgress();
   refreshSubmit();
 }
 
-function esc(s) {
-  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
-
-// ── ANTI-TAMPER ──────────────────────────────────────────────────────────────
-// If a student edits any field after a section was validated, revoke that section.
-function onEdit(ci) {
-  if (app.sectionValidated[ci]) revokeSection(ci);
-}
+// ═══════════════════════════════════════════════════════════
+// ANTI-TAMPER
+// ═══════════════════════════════════════════════════════════
+function onEdit(ci) { if (app.sectionValidated[ci]) revokeSection(ci); }
 
 function revokeSection(ci) {
   app.sectionValidated[ci]  = false;
   app.sectionAllCorrect[ci] = false;
-
-  const statusEl = document.getElementById(`car${ci + 1}-status`);
-  statusEl.className   = "section-status stale";
-  statusEl.textContent = "⚠ Needs Re-Validation";
-  statusEl.style.display = "inline-flex";
-
-  // Clear all visual feedback for this section
-  app.cars[ci].offers.forEach((_, oi) => {
-    const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
-    const intEl = document.getElementById(`c${ci}_o${oi}_int`);
-    const hpEl  = document.getElementById(`h_c${ci}_o${oi}_pay`);
-    const hiEl  = document.getElementById(`h_c${ci}_o${oi}_int`);
-    if (payEl) payEl.className = "student-input";
-    if (intEl) intEl.className = "student-input";
-    if (hpEl)  { hpEl.textContent = ""; hpEl.style.display = "none"; }
-    if (hiEl)  { hiEl.textContent = ""; hiEl.style.display = "none"; }
-  });
-
+  const s = document.getElementById(`car${ci+1}-status`);
+  s.className   = "section-status stale";
+  s.textContent = "\u26A0 Needs Re-Validation";
+  app.cars[ci].offers.forEach((_, oi) => clearFb(ci, oi));
   recountScore();
   refreshSubmit();
 }
 
-// ── SECTION VALIDATION ────────────────────────────────────────────────────────
+function clearFb(ci, oi) {
+  ["pay","int"].forEach(t => {
+    const el = document.getElementById(`c${ci}_o${oi}_${t}`);
+    const h  = document.getElementById(`h_c${ci}_o${oi}_${t}`);
+    if (el) el.className = "student-input";
+    if (h)  { h.textContent = ""; h.style.display = "none"; }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════════════════════
 function validateSection(ci) {
+  confettiEnabled = true;
+
   const car = app.cars[ci];
-  let sectionCorrect = 0;
-  let allCorrect = true;
+  let correct = 0, allOk = true;
 
   car.offers.forEach((offer, oi) => {
     const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
@@ -1016,74 +1246,60 @@ function validateSection(ci) {
     const hpEl  = document.getElementById(`h_c${ci}_o${oi}_pay`);
     const hiEl  = document.getElementById(`h_c${ci}_o${oi}_int`);
 
-    const payOk = isCorrect(Number(payEl.value), offer.correctPayment, payEl.value);
-    const intOk = isCorrect(Number(intEl.value), offer.correctInterest, intEl.value);
+    const payOk = isOk(Number(payEl.value), offer.correctPayment, payEl.value);
+    const intOk = isOk(Number(intEl.value), offer.correctInterest, intEl.value);
 
-    // Payment field
-    const wasPayCorrect = payEl.classList.contains("correct");
+    const wasP = payEl.classList.contains("correct");
     if (payOk) {
-      if (!wasPayCorrect) confetti(payEl); // burst only on new correct answers
-      payEl.className     = "student-input correct";
-      hpEl.style.display  = "none";
-      hpEl.textContent    = "";
-      sectionCorrect++;
+      if (!wasP) confettiBurst(payEl);
+      payEl.className = "student-input correct";
+      hpEl.style.display = "none"; hpEl.textContent = "";
+      correct++;
     } else {
-      payEl.className     = "student-input wrong";
-      hpEl.textContent    = "✗ Try again";
-      hpEl.style.display  = "block";
-      allCorrect = false;
+      payEl.className = "student-input wrong";
+      hpEl.textContent = "\u2717 Try again"; hpEl.style.display = "block";
+      allOk = false;
     }
 
-    // Interest field
-    const wasIntCorrect = intEl.classList.contains("correct");
+    const wasI = intEl.classList.contains("correct");
     if (intOk) {
-      if (!wasIntCorrect) confetti(intEl);
-      intEl.className     = "student-input correct";
-      hiEl.style.display  = "none";
-      hiEl.textContent    = "";
-      sectionCorrect++;
+      if (!wasI) confettiBurst(intEl);
+      intEl.className = "student-input correct";
+      hiEl.style.display = "none"; hiEl.textContent = "";
+      correct++;
     } else {
-      intEl.className     = "student-input wrong";
-      hiEl.textContent    = "✗ Try again";
-      hiEl.style.display  = "block";
-      allCorrect = false;
+      intEl.className = "student-input wrong";
+      hiEl.textContent = "\u2717 Try again"; hiEl.style.display = "block";
+      allOk = false;
     }
   });
 
   app.sectionValidated[ci]  = true;
-  app.sectionAllCorrect[ci] = allCorrect;
+  app.sectionAllCorrect[ci] = allOk;
 
-  const statusEl = document.getElementById(`car${ci + 1}-status`);
-  if (allCorrect) {
-    statusEl.className   = "section-status validated";
-    statusEl.textContent = `✓ All Correct (${sectionCorrect}/18)`;
-  } else {
-    statusEl.className   = "section-status needs-work";
-    statusEl.textContent = `${sectionCorrect}/18 — Fix & Re-Validate`;
-  }
-  statusEl.style.display = "inline-flex";
+  const s = document.getElementById(`car${ci+1}-status`);
+  s.className   = allOk ? "section-status validated" : "section-status needs-work";
+  s.textContent = allOk ? "\u2713 All Correct" : `${correct}/18 \u2014 Fix & Re-Validate`;
 
   recountScore();
   refreshSubmit();
 }
 
-// An answer is correct if: it's non-blank, numeric, and within ±$2 of the correct value
-function isCorrect(studentVal, correctVal, raw) {
-  if (raw === "" || raw === null || raw === undefined) return false;
-  if (isNaN(studentVal)) return false;
-  return Math.abs(studentVal - correctVal) <= TOLERANCE;
+function isOk(val, correct, raw) {
+  if (!raw && raw !== 0) return false;
+  if (isNaN(val)) return false;
+  return Math.abs(val - correct) <= TOLERANCE;
 }
 
-// Recount total correct fields across both validated sections
 function recountScore() {
   let total = 0;
   app.cars.forEach((car, ci) => {
     if (!app.sectionValidated[ci]) return;
-    car.offers.forEach((offer, oi) => {
-      const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
-      const intEl = document.getElementById(`c${ci}_o${oi}_int`);
-      if (isCorrect(Number(payEl.value), offer.correctPayment, payEl.value))   total++;
-      if (isCorrect(Number(intEl.value), offer.correctInterest, intEl.value))  total++;
+    car.offers.forEach((o, oi) => {
+      const p = document.getElementById(`c${ci}_o${oi}_pay`);
+      const i = document.getElementById(`c${ci}_o${oi}_int`);
+      if (isOk(Number(p.value), o.correctPayment, p.value))   total++;
+      if (isOk(Number(i.value), o.correctInterest, i.value))  total++;
     });
   });
   app.score = total;
@@ -1093,11 +1309,10 @@ function recountScore() {
 function refreshProgress() {
   const pct = Math.round((app.score / TOTAL_FIELDS) * 100);
   document.getElementById("progress-num").textContent  = app.score;
-  document.getElementById("progress-pct").textContent  = `/ 36 \u00a0(${pct}%)`;
-  document.getElementById("progress-fill").style.width = `${pct}%`;
+  document.getElementById("progress-pct").textContent  = `/ 36\u00a0\u00b7\u00a0${pct}%`;
+  document.getElementById("progress-fill").style.width = pct + "%";
 }
 
-// Submit unlocks only when BOTH sections have all answers correct
 function refreshSubmit() {
   const ready = app.sectionAllCorrect[0] && app.sectionAllCorrect[1];
   document.getElementById("btn-submit").disabled    = !ready;
@@ -1106,74 +1321,61 @@ function refreshSubmit() {
     : "All 36 answers must be correct before submitting.";
 }
 
-// ── CONFETTI BURST ────────────────────────────────────────────────────────────
-// Lightweight canvas confetti that fires from the position of a correct input.
-const CONFETTI_COLORS = ["#FFD700","#FF6B6B","#4ECDC4","#45B7D1","#96CEB4","#FECA57","#FF9FF3","#6BCB77"];
-let activeConfetti = 0;
-const MAX_CONFETTI  = 5;
+// ═══════════════════════════════════════════════════════════
+// CONFETTI — guard: only fires after confettiEnabled = true
+// ═══════════════════════════════════════════════════════════
+const CCOLORS = ["#FFD700","#FF6B6B","#4ECDC4","#45B7D1","#96CEB4","#FECA57","#FF9FF3","#6BCB77"];
+let activeCFX = 0;
 
-function confetti(inputEl) {
-  if (activeConfetti >= MAX_CONFETTI) return;
-  activeConfetti++;
+function confettiBurst(el) {
+  if (!confettiEnabled || activeCFX >= 4) return;
+  activeCFX++;
 
-  const canvas = document.createElement("canvas");
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  canvas.style.cssText =
-    `position:fixed;top:0;left:0;width:${window.innerWidth}px;` +
-    `height:${window.innerHeight}px;pointer-events:none;z-index:9999;`;
-  document.body.appendChild(canvas);
+  const cv = document.createElement("canvas");
+  cv.width = window.innerWidth; cv.height = window.innerHeight;
+  Object.assign(cv.style, {
+    position:"fixed", top:"0", left:"0",
+    width:cv.width+"px", height:cv.height+"px",
+    pointerEvents:"none", zIndex:"9999",
+  });
+  document.body.appendChild(cv);
 
-  const ctx  = canvas.getContext("2d");
-  const rect  = inputEl.getBoundingClientRect();
-  const ox    = rect.left + rect.width  / 2;
-  const oy    = rect.top  + rect.height / 2;
+  const ctx = cv.getContext("2d");
+  const r   = el.getBoundingClientRect();
+  const ox  = r.left + r.width / 2;
+  const oy  = r.top  + r.height / 2;
 
-  const particles = Array.from({ length: 24 }, () => ({
-    x:    ox,
-    y:    oy,
-    vx:   (Math.random() - 0.5) * 14,
-    vy:   (Math.random() - 2.0) * 10,
-    w:    Math.random() * 8 + 4,
-    h:    Math.random() * 5 + 3,
-    rot:  Math.random() * Math.PI * 2,
-    rotV: (Math.random() - 0.5) * 0.28,
-    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+  const pts = Array.from({length:20}, () => ({
+    x:ox, y:oy,
+    vx:(Math.random()-.5)*13,
+    vy:(Math.random()-2.2)*9,
+    w:Math.random()*7+4, h:Math.random()*4+3,
+    rot:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.25,
+    c:CCOLORS[Math.floor(Math.random()*CCOLORS.length)],
   }));
 
-  const DURATION = 1300;
-  let start = null;
-
-  (function animate(ts) {
-    if (!start) start = ts;
-    const prog = (ts - start) / DURATION;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-      p.x   += p.vx;
-      p.y   += p.vy;
-      p.vy  += 0.38; // gravity
-      p.rot += p.rotV;
-
+  let t0 = null;
+  (function draw(ts) {
+    if (!t0) t0 = ts;
+    const p = (ts - t0) / 1200;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    pts.forEach(q => {
+      q.x+=q.vx; q.y+=q.vy; q.vy+=0.36; q.rot+=q.rv;
       ctx.save();
-      ctx.globalAlpha = Math.max(0, 1 - prog * 1.5);
-      ctx.fillStyle   = p.color;
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.globalAlpha = Math.max(0, 1 - p * 1.4);
+      ctx.fillStyle   = q.c;
+      ctx.translate(q.x, q.y); ctx.rotate(q.rot);
+      ctx.fillRect(-q.w/2, -q.h/2, q.w, q.h);
       ctx.restore();
     });
-
-    if (prog < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      canvas.remove();
-      activeConfetti--;
-    }
+    if (p < 1) requestAnimationFrame(draw);
+    else { cv.remove(); activeCFX--; }
   })(performance.now());
 }
 
-// ── PAYLOAD + FORM PARAMS ────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// SUBMISSION — Apps Script (text/plain + JSON, no-cors)
+// ═══════════════════════════════════════════════════════════
 function buildPayload() {
   return {
     studentName:   app.studentName,
@@ -1183,225 +1385,188 @@ function buildPayload() {
     cars: app.cars.map((car, ci) => ({
       carName:   car.carName,
       principal: car.principal,
-      offers: car.offers.map((offer, oi) => {
-        const payEl = document.getElementById(`c${ci}_o${oi}_pay`);
-        const intEl = document.getElementById(`c${ci}_o${oi}_int`);
-        const sp = Number(payEl.value);
-        const si = Number(intEl.value);
+      offers: car.offers.map((o, oi) => {
+        const p = document.getElementById(`c${ci}_o${oi}_pay`);
+        const i = document.getElementById(`c${ci}_o${oi}_int`);
+        const sp = Number(p.value), si = Number(i.value);
         return {
-          lenderName:      offer.lenderName,
-          termMonths:      offer.termMonths,
-          apr:             offer.apr,
-          correctPayment:  offer.correctPayment,
-          correctInterest: offer.correctInterest,
+          lenderName:      o.lenderName,
+          termMonths:      o.termMonths,
+          apr:             o.apr,
+          correctPayment:  o.correctPayment,
+          correctInterest: o.correctInterest,
           studentPayment:  isNaN(sp) ? 0 : sp,
           studentInterest: isNaN(si) ? 0 : si,
-          paymentCorrect:  isCorrect(sp, offer.correctPayment, payEl.value),
-          interestCorrect: isCorrect(si, offer.correctInterest, intEl.value),
+          paymentCorrect:  isOk(sp, o.correctPayment, p.value),
+          interestCorrect: isOk(si, o.correctInterest, i.value),
         };
       }),
     })),
   };
 }
 
-// Build URLSearchParams for Google Forms submission.
-// Google Forms accepts application/x-www-form-urlencoded as a "simple request"
-// that does not trigger CORS preflights, making it compatible with mode:"no-cors".
-function buildFormParams(payload) {
-  const params = new URLSearchParams();
-  const E = FORM_ENTRY_IDS;
-
-  const a = (id, val) => params.append(`entry.${id}`, val ?? "");
-
-  a(E.studentName,  payload.studentName);
-  a(E.timestamp,    payload.timestamp);
-  a(E.finalScore,   `${payload.score}/36`);
-
-  a(E.car1Name,      payload.cars[0].carName);
-  a(E.car1Principal, payload.cars[0].principal);
-  payload.cars[0].offers.forEach((o, i) => {
-    const n = i + 1;
-    a(E[`c1o${n}Lender`],          o.lenderName);
-    a(E[`c1o${n}Term`],            o.termMonths);
-    a(E[`c1o${n}APR`],             o.apr);
-    a(E[`c1o${n}CorrectPayment`],  o.correctPayment);
-    a(E[`c1o${n}CorrectInterest`], o.correctInterest);
-    a(E[`c1o${n}StudentPayment`],  o.studentPayment);
-    a(E[`c1o${n}StudentInterest`], o.studentInterest);
-    a(E[`c1o${n}PaymentCorrect`],  o.paymentCorrect  ? "Yes" : "No");
-    a(E[`c1o${n}InterestCorrect`], o.interestCorrect ? "Yes" : "No");
-  });
-
-  a(E.car2Name,      payload.cars[1].carName);
-  a(E.car2Principal, payload.cars[1].principal);
-  payload.cars[1].offers.forEach((o, i) => {
-    const n = i + 1;
-    a(E[`c2o${n}Lender`],          o.lenderName);
-    a(E[`c2o${n}Term`],            o.termMonths);
-    a(E[`c2o${n}APR`],             o.apr);
-    a(E[`c2o${n}CorrectPayment`],  o.correctPayment);
-    a(E[`c2o${n}CorrectInterest`], o.correctInterest);
-    a(E[`c2o${n}StudentPayment`],  o.studentPayment);
-    a(E[`c2o${n}StudentInterest`], o.studentInterest);
-    a(E[`c2o${n}PaymentCorrect`],  o.paymentCorrect  ? "Yes" : "No");
-    a(E[`c2o${n}InterestCorrect`], o.interestCorrect ? "Yes" : "No");
-  });
-
-  return params;
-}
-
-// ── SUBMIT ────────────────────────────────────────────────────────────────────
 async function submitResults() {
-  const btn     = document.getElementById("btn-submit");
-  const alertEl = document.getElementById("submit-alert");
+  const btn = document.getElementById("btn-submit");
+  const aEl = document.getElementById("submit-alert");
 
-  btn.disabled     = true;
-  btn.textContent  = "Submitting…";
-  alertEl.style.display = "none";
+  if (APPS_SCRIPT_URL === "YOUR_URL_HERE") {
+    aEl.className     = "alert alert-error";
+    aEl.textContent   = "\u26A0 Teacher setup required: replace APPS_SCRIPT_URL in index.html with your deployed Apps Script URL.";
+    aEl.style.display = "block";
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = "Submitting\u2026";
+  aEl.style.display = "none";
 
   const payload = buildPayload();
-  const params  = buildFormParams(payload);
 
   try {
-    // Google Forms submission via no-cors + urlencoded.
-    // The browser cannot read the response (opaque), but the form receives the data.
-    // Confirm receipt by checking your Google Sheet for new rows.
-    await fetch(FORM_SUBMIT_URL, {
+    // no-cors: response is opaque — cannot read status or body.
+    // If fetch resolves, the request reached Google. Check your Sheet to confirm the row.
+    await fetch(APPS_SCRIPT_URL, {
       method:  "POST",
       mode:    "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body:    params.toString(),
+      headers: { "Content-Type": "text/plain" },
+      body:    JSON.stringify(payload),
     });
-
-    // Fetch resolved = request was delivered to Google.
-    showSuccessView(payload);
-
+    showSuccess(payload);
   } catch (err) {
-    // Fetch rejected = network-level failure (server was never reached).
-    alertEl.className     = "alert alert-error";
-    alertEl.textContent   = `\u274C Network error: ${err.message}. Check your connection and try again.`;
-    alertEl.style.display = "block";
-    btn.disabled    = false;
-    btn.textContent = "Submit All Results";
+    aEl.className     = "alert alert-error";
+    aEl.textContent   = "\u274C Network error: " + err.message + ". Check your connection and try again.";
+    aEl.style.display = "block";
+    btn.disabled      = false;
+    btn.textContent   = "Submit All Results";
   }
 }
 
-// ── SUCCESS VIEW ──────────────────────────────────────────────────────────────
-function showSuccessView(payload) {
-  const pct = Math.round((payload.score / TOTAL_FIELDS) * 100);
-  document.getElementById("success-score").textContent = payload.score;
-  document.getElementById("success-sub").textContent   = `out of 36 \u2014 ${pct}%`;
+// ═══════════════════════════════════════════════════════════
+// SUCCESS
+// ═══════════════════════════════════════════════════════════
+const SORT_ST = [{ col:null, dir:"asc" }, { col:null, dir:"asc" }];
 
-  const container = document.getElementById("success-tables");
-  container.innerHTML = "";
-  payload.cars.forEach((car, i) => container.appendChild(buildSortableTable(car, i)));
-
-  showView("view-success");
-}
-
-// Column definitions for the success summary tables
-const SUMMARY_COLS = [
-  { key:"lenderName",     label:"Lender",         numeric:false, fmt: v => v                          },
-  { key:"termMonths",     label:"Term (mo)",       numeric:true,  fmt: v => v                          },
-  { key:"apr",            label:"APR (%)",         numeric:true,  fmt: v => v.toFixed(2) + "%"         },
-  { key:"principal",      label:"Principal",       numeric:true,  fmt: v => "$" + fmt(v)               },
-  { key:"correctPayment", label:"Mo. Payment",     numeric:true,  fmt: v => "$" + fmt(v)               },
-  { key:"totalInterest",  label:"Total Interest",  numeric:true,  fmt: v => "$" + fmt(v)               },
-  { key:"totalCost",      label:"Total Cost",      numeric:true,  fmt: v => "$" + fmt(v)               },
+const SCOLS = [
+  { key:"lenderName",    label:"Lender",        num:false, fmt:v => v                    },
+  { key:"termMonths",    label:"Term",           num:true,  fmt:v => v + " mo"            },
+  { key:"payment",       label:"Mo. Payment",    num:true,  fmt:v => "$" + fmt(v)         },
+  { key:"interest",      label:"Total Interest", num:true,  fmt:v => "$" + fmt(v)         },
+  { key:"totalCost",     label:"Total Cost",     num:true,  fmt:v => "$" + fmt(v)         },
 ];
 
-// Per-table sort state: [{ col: colIndex|null, dir: 'asc'|'desc' }, ...]
-const sortState = [{ col:null, dir:"asc" }, { col:null, dir:"asc" }];
+function showSuccess(payload) {
+  const container = document.getElementById("success-tables");
+  container.innerHTML = "";
+  SORT_ST[0] = { col:null, dir:"asc" };
+  SORT_ST[1] = { col:null, dir:"asc" };
 
-function buildSortableTable(car, tableIndex) {
-  // Flatten offers with derived columns for display
-  const baseRows = car.offers.map(o => ({
-    lenderName:     o.lenderName,
-    termMonths:     o.termMonths,
-    apr:            o.apr,
-    principal:      car.principal,
-    correctPayment: o.correctPayment,
-    totalInterest:  o.correctInterest,
-    totalCost:      roundCents(car.principal + o.correctInterest),
+  payload.cars.forEach((car, i) => {
+    container.appendChild(buildTable(car, i));
+  });
+
+  showView("view-success");
+  showModal(successModalHtml(payload.score));
+}
+
+function buildTable(car, ti) {
+  const rows = car.offers.map(o => ({
+    lenderName: o.lenderName,
+    termMonths: o.termMonths,
+    payment:    o.correctPayment,
+    interest:   o.correctInterest,
+    totalCost:  rc(car.principal + o.correctInterest),
   }));
 
-  const wrapper = document.createElement("div");
-  wrapper.className = "success-table-card";
+  const card = document.createElement("div");
+  card.className = "s-card";
 
-  const titleEl = document.createElement("div");
-  titleEl.className   = "success-table-title";
-  titleEl.textContent = car.carName;
-  wrapper.appendChild(titleEl);
+  const title = document.createElement("div");
+  title.className   = "s-card-title";
+  title.textContent = car.carName;
+  card.appendChild(title);
 
-  const scrollWrap = document.createElement("div");
-  scrollWrap.style.overflowX = "auto";
-  wrapper.appendChild(scrollWrap);
+  const wrap = document.createElement("div");
+  wrap.style.overflowX = "auto";
+  card.appendChild(wrap);
 
-  // Render renders from a rows array (allows sorted copies)
-  function render(rows) {
-    scrollWrap.innerHTML = "";
-    const table = document.createElement("table");
-    table.className = "sortable-table";
+  function render(displayRows) {
+    wrap.innerHTML = "";
+    const tbl = document.createElement("table");
+    tbl.className = "s-table";
 
-    // Header
     const thead = document.createElement("thead");
-    const hRow  = document.createElement("tr");
-    SUMMARY_COLS.forEach((col, colIdx) => {
+    const htr   = document.createElement("tr");
+    SCOLS.forEach((col, ci) => {
       const th = document.createElement("th");
       th.textContent = col.label;
-      const s = sortState[tableIndex];
-      if (s.col === colIdx) th.className = s.dir === "asc" ? "sort-asc" : "sort-desc";
-
+      const s = SORT_ST[ti];
+      if (s.col === ci) th.className = "sort-" + s.dir;
       th.onclick = () => {
-        const s = sortState[tableIndex];
-        s.dir = (s.col === colIdx && s.dir === "asc") ? "desc" : "asc";
-        s.col = colIdx;
-        const sorted = [...baseRows].sort((a, b) => {
-          const av = a[col.key];
-          const bv = b[col.key];
-          const cmp = col.numeric ? av - bv : String(av).localeCompare(String(bv));
-          return s.dir === "asc" ? cmp : -cmp;
+        const s = SORT_ST[ti];
+        s.dir = (s.col === ci && s.dir === "asc") ? "desc" : "asc";
+        s.col = ci;
+        const sorted = [...rows].sort((a,b) => {
+          const av = a[col.key], bv = b[col.key];
+          const c  = col.num ? av-bv : String(av).localeCompare(String(bv));
+          return s.dir === "asc" ? c : -c;
         });
         render(sorted);
       };
-      hRow.appendChild(th);
+      htr.appendChild(th);
     });
-    thead.appendChild(hRow);
-    table.appendChild(thead);
+    thead.appendChild(htr);
+    tbl.appendChild(thead);
 
-    // Body
     const tbody = document.createElement("tbody");
-    rows.forEach(row => {
+    displayRows.forEach(row => {
       const tr = document.createElement("tr");
-      SUMMARY_COLS.forEach((col, colIdx) => {
+      SCOLS.forEach(col => {
         const td = document.createElement("td");
         td.textContent = col.fmt(row[col.key]);
-        if (colIdx === 0) td.className = "td-name";
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
     });
-    table.appendChild(tbody);
-    scrollWrap.appendChild(table);
+    tbl.appendChild(tbody);
+    wrap.appendChild(tbl);
   }
 
-  render(baseRows);
-  return wrapper;
+  render(rows);
+  return card;
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+const ALL_VIEWS = ["view-setup","view-practice","view-success"];
+
 function showView(id) {
-  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+  ALL_VIEWS.forEach(v => {
+    const el = document.getElementById(v);
+    el.classList.remove("active");
+    el.style.display = "none";
+  });
+  const t = document.getElementById(id);
+  t.style.display = "block";
+  t.classList.add("active");
   window.scrollTo(0, 0);
 }
 
+// ═══════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════
 function fmt(n) {
-  return Number(n).toLocaleString("en-US", { minimumFractionDigits:2, maximumFractionDigits:2 });
+  return Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function esc(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
 showView("view-setup");
+showModal(warningModalHtml(), { dismissOnOverlay: false }); // setup warning — must click button
 </script>
 </body>
 </html>

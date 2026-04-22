@@ -1051,7 +1051,7 @@ const LENDERS = [
 ];
 
 const TERMS        = [36, 48, 60];
-const TOLERANCE    = 2.00;
+const TOLERANCE    = 5.00;
 const TOTAL_FIELDS = 36;       // 9 offers × 2 fields × 2 cars
 
 // ═══════════════════════════════════════════════════════════
@@ -1222,11 +1222,22 @@ function shuffle(a) {
 // LOAN MATH — M = P[r(1+r)^n]/[(1+r)^n-1]
 // ═══════════════════════════════════════════════════════════
 function calcLoan(P, apr, n) {
-  const r          = apr / 100 / 12;
-  const factor     = Math.pow(1 + r, n);
-  const pay        = P * (r * factor) / (factor - 1);
-  const roundedPay = rc(pay);
-  return { pay: roundedPay, interest: rc((roundedPay * n) - P) };
+  // NGPF calculator rounds the monthly rate to 6 decimal places before computing.
+  // We must match this exactly or our "correct" answers will differ from what students see.
+  const r      = parseFloat((apr / 100 / 12).toFixed(6));
+  const factor = Math.pow(1 + r, n);
+  const rawPay = P * (r * factor) / (factor - 1);
+
+  // Round payment to whole cents, then compute interest in integer cents.
+  // Avoids all floating point drift: (payCents × n) - principalCents is exact integer math.
+  const payCents       = Math.round(rawPay * 100);
+  const principalCents = Math.round(P * 100);
+  const interestCents  = (payCents * n) - principalCents;
+
+  return {
+    pay:      payCents / 100,
+    interest: interestCents / 100,
+  };
 }
 function rc(v) { return Math.round(v * 100) / 100; }
 

@@ -138,7 +138,7 @@
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.55;
   background: var(--bg);
   color: var(--text);
@@ -176,8 +176,8 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 36px 40px 32px;
-  width: min(520px, 100%);
+  padding: clamp(32px, 5vw, 64px) clamp(32px, 6vw, 80px) clamp(28px, 4vw, 52px);
+  width: min(92vw, 960px);
   position: relative;
   transform: translateY(14px) scale(0.98);
   transition: transform 0.22s ease;
@@ -189,30 +189,30 @@ body {
 
 .modal-close {
   position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 22px;
+  top: 16px;
+  right: 20px;
+  font-size: 28px;
   line-height: 1;
   color: var(--muted);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 4px;
   transition: background 0.15s;
 }
 .modal-close:hover { background: var(--surf-alt); color: var(--text); }
 
-.modal-icon  { font-size: 36px; display: block; margin-bottom: 10px; }
+.modal-icon  { font-size: 52px; display: block; margin-bottom: 14px; }
 .modal-title {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 19px;
+  font-size: clamp(26px, 3.5vw, 36px);
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 14px;
-  line-height: 1.25;
+  margin-bottom: 18px;
+  line-height: 1.2;
 }
-.modal-body  { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 12px; }
+.modal-body  { font-size: clamp(16px, 2vw, 20px); color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
 .modal-body strong { color: var(--text); }
 .modal-body kbd {
   font-family: monospace;
@@ -220,63 +220,63 @@ body {
   border: 1px solid var(--border);
   border-radius: 3px;
   padding: 1px 5px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text);
 }
 
 .modal-step {
   display: flex;
-  gap: 10px;
-  margin-bottom: 9px;
-  font-size: 14px;
+  gap: 14px;
+  margin-bottom: 12px;
+  font-size: clamp(16px, 2vw, 20px);
   color: var(--text);
   line-height: 1.5;
 }
 .modal-step-num {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   background: var(--accent);
   color: #fff;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .modal-tip {
   background: var(--accent-lt);
-  border-left: 3px solid var(--accent);
+  border-left: 4px solid var(--accent);
   border-radius: 0 5px 5px 0;
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 14px 18px;
+  font-size: clamp(15px, 1.8vw, 19px);
   color: var(--text);
-  margin: 14px 0;
+  margin: 18px 0;
   line-height: 1.55;
 }
 .modal-tip strong { color: var(--accent); }
 
-.modal-divider { height: 1px; background: var(--border); margin: 18px 0; }
+.modal-divider { height: 1px; background: var(--border); margin: 22px 0; }
 
 .modal-score {
   font-family: 'Courier New', monospace;
-  font-size: 44px;
+  font-size: clamp(56px, 8vw, 90px);
   font-weight: 700;
   color: var(--accent);
   text-align: center;
-  margin: 8px 0 2px;
+  margin: 8px 0 4px;
   display: block;
 }
-.modal-score-sub { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.modal-score-sub { text-align: center; font-size: clamp(15px, 1.8vw, 18px); color: var(--muted); margin-bottom: 16px; }
 
 .modal-q {
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: clamp(16px, 2vw, 20px);
   color: var(--text);
   line-height: 1.5;
 }
@@ -284,13 +284,14 @@ body {
   flex-shrink: 0;
   font-weight: 700;
   color: var(--accent);
-  min-width: 20px;
+  min-width: 26px;
+  font-size: clamp(18px, 2.2vw, 22px);
 }
 
 .modal-local-note {
-  font-size: 12px;
+  font-size: clamp(14px, 1.6vw, 17px);
   color: var(--muted);
-  margin-top: 14px;
+  margin-top: 16px;
   line-height: 1.5;
 }
 .modal-local-note strong { color: var(--text); }
@@ -298,11 +299,11 @@ body {
 .modal-btn {
   display: block;
   width: 100%;
-  margin-top: 20px;
-  padding: 11px 20px;
+  margin-top: 24px;
+  padding: 16px 24px;
   background: var(--accent);
   color: #fff;
-  font-size: 15px;
+  font-size: clamp(17px, 2vw, 21px);
   font-weight: 600;
   font-family: inherit;
   border: none;
@@ -578,7 +579,7 @@ header h1 {
 
 .table-wrap { overflow-x: auto; }
 
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 16px; }
 thead th {
   font-size: 11px;
   font-weight: 700;
@@ -709,43 +710,79 @@ tr.group-row td {
   color: var(--accent);
 }
 
-.s-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.s-table { width: 100%; border-collapse: collapse; font-size: 15px; }
 .s-table th {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--muted);
-  padding: 8px 12px;
+  padding: 10px 12px;
   text-align: right;
   border-bottom: 2px solid var(--border);
   background: var(--surf-alt);
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  transition: color 0.15s;
+  transition: color 0.15s, background 0.15s;
 }
 .s-table th:first-child { text-align: left; }
-.s-table th:hover { color: var(--accent); }
-.s-table th.sort-asc::after  { content: ' \2191'; color: var(--accent); }
-.s-table th.sort-desc::after { content: ' \2193'; color: var(--accent); }
+.s-table th::after { content: ' \2195'; opacity: 0.35; font-size: 12px; }
+.s-table th:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--surf-alt)); }
+.s-table th:hover::after { opacity: 0.7; }
+.s-table th.sort-asc  { color: var(--accent); background: var(--accent-lt); }
+.s-table th.sort-desc { color: var(--accent); background: var(--accent-lt); }
+.s-table th.sort-asc::after  { content: ' \2191'; opacity: 1; font-size: 14px; font-weight: 900; }
+.s-table th.sort-desc::after { content: ' \2193'; opacity: 1; font-size: 14px; font-weight: 900; }
 .s-table td {
   padding: 7px 12px;
   border-bottom: 1px solid var(--border);
   font-family: 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   text-align: right;
 }
 .s-table td:first-child {
   font-family: inherit;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text);
   text-align: left;
 }
 .s-table tr:last-child td { border-bottom: none; }
 .s-table tr:hover td { background: var(--surf-alt); }
+
+/* Reflection questions (persistent on success page) */
+.reflect-section {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--sh-sm);
+}
+.reflect-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.reflect-q {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: clamp(15px, 1.8vw, 19px);
+  color: var(--text);
+  line-height: 1.5;
+}
+.reflect-num {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 24px;
+  font-size: clamp(16px, 2vw, 20px);
+}
 
 /* ═══════════════════════════════════════════════════════════
    RESPONSIVE — desktop split-screen support (640px+)
@@ -945,7 +982,17 @@ tr.group-row td {
           lenders in the <strong>Greenville, SC area</strong>. These are actual options available in your community.
         </span>
       </div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:10px; text-align:right;">
+        Click any column header to sort
+      </p>
       <div class="success-tables" id="success-tables"></div>
+
+      <div class="reflect-section">
+        <div class="reflect-title">Think About It</div>
+        <div class="reflect-q"><span class="reflect-num">1.</span><span>Who offered the loan with the lowest monthly payment for each car?</span></div>
+        <div class="reflect-q"><span class="reflect-num">2.</span><span>Which lender had the lowest total cost of the loan overall?</span></div>
+        <div class="reflect-q"><span class="reflect-num">3.</span><span>If you had to accept one loan, which would you choose, and why?</span></div>
+      </div>
     </div>
   </div>
 
@@ -1032,7 +1079,7 @@ function warningModalHtml() {
       Complete the activity in <strong>one sitting</strong> and click
       <strong>Submit All Results</strong> before closing this tab.
     </p>
-    <button class="modal-btn" onclick="closeModal()">I Understand &mdash; Let&rsquo;s Begin</button>
+    <button class="modal-btn" onclick="closeModal()">I Understand. Let's Begin.</button>
   `;
 }
 
@@ -1040,17 +1087,15 @@ function instructionsModalHtml() {
   return `
     <span class="modal-icon">&#127919;</span>
     <div class="modal-title">Your Mission</div>
-    <div class="modal-step"><span class="modal-step-num">1</span><span>You have <strong>18 loan offers</strong> to calculate &mdash; 9 per car, in three term groups.</span></div>
-    <div class="modal-step"><span class="modal-step-num">2</span><span>Open the <strong>NGPF Amortization Calculator</strong> using the link in the blue bar above.</span></div>
-    <div class="modal-step"><span class="modal-step-num">3</span><span>Enter each offer&rsquo;s <strong>Amount</strong>, <strong>Interest Rate</strong>, and <strong>Term</strong> into the calculator.</span></div>
-    <div class="modal-step"><span class="modal-step-num">4</span><span>Record the <strong>Monthly Payment</strong> and <strong>Total Interest</strong> in the table.</span></div>
-    <div class="modal-step"><span class="modal-step-num">5</span><span>Validate each car section. All <strong>36 fields must be correct</strong> to submit.</span></div>
+    <div class="modal-step"><span class="modal-step-num">1</span><span>Open the <strong>NGPF Amortization Calculator</strong> using the link in the blue bar above.</span></div>
+    <div class="modal-step"><span class="modal-step-num">2</span><span>For each loan offer, enter the <strong>Amount</strong>, <strong>Interest Rate</strong>, and <strong>Term</strong> into the calculator. Record the <strong>Monthly Payment</strong> and <strong>Total Interest</strong> in the table.</span></div>
+    <div class="modal-step"><span class="modal-step-num">3</span><span>Validate each car section when done. All <strong>36 fields must be correct</strong> before you can submit.</span></div>
     <div class="modal-tip">
       &#128187; <strong>Use Split Screen!</strong> Put the calculator on one half of your screen
       and this page on the other. Press <kbd>Win</kbd>&thinsp;+&thinsp;<kbd>&larr;</kbd> or
       <kbd>&rarr;</kbd> to snap windows side by side.
     </div>
-    <button class="modal-btn" onclick="closeModal()">Got It &mdash; Start Calculating</button>
+    <button class="modal-btn" onclick="closeModal()">Got It. Start Calculating.</button>
   `;
 }
 
@@ -1061,10 +1106,10 @@ function successModalHtml(score) {
     <span class="modal-score">${score}/36</span>
     <div class="modal-score-sub">All 36 answers correct</div>
     <div class="modal-divider"></div>
-    <div class="modal-title" style="font-size:16px; margin-bottom:12px;">Think About It</div>
+    <div class="modal-title">Think About It</div>
     <div class="modal-q"><span class="modal-q-num">1.</span><span>Who offered the loan with the lowest monthly payment for each car?</span></div>
     <div class="modal-q"><span class="modal-q-num">2.</span><span>Which lender had the lowest total cost of the loan overall?</span></div>
-    <div class="modal-q"><span class="modal-q-num">3.</span><span>If you had to accept one loan, which would you choose &mdash; and why?</span></div>
+    <div class="modal-q"><span class="modal-q-num">3.</span><span>If you had to accept one loan, which would you choose, and why?</span></div>
     <p class="modal-local-note">
       &#128205; These rates are based on real offers from lenders in the <strong>Greenville, SC area</strong>.
     </p>

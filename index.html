@@ -384,6 +384,7 @@ header h1 {
   padding: clamp(18px, 3vw, 32px);
   box-shadow: var(--sh-sm);
   max-width: 560px;
+  margin: 0 auto;
 }
 .setup-card h2 {
   font-family: Georgia, 'Times New Roman', serif;
@@ -955,7 +956,7 @@ tr.group-row td {
 // TEACHER: replace with your Apps Script Web App URL
 // Deploy as: Execute as Me | Who has access: Anyone
 // ═══════════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/a/macros/greermiddlecollege.org/s/AKfycbx0FgENXzze0I6MzEGPTIOkzCjYF3LnTIzt8I5r3gxwqzyYxvdOQxj9f8dynH6Tkm4KVw/exec";
+const APPS_SCRIPT_URL = "YOUR_URL_HERE";
 
 // ═══════════════════════════════════════════════════════════
 // LENDER DATA — real Greenville, SC area rates (tildes stripped)
@@ -1288,6 +1289,7 @@ function validateSection(ci) {
 function isOk(val, correct, raw) {
   if (!raw && raw !== 0) return false;
   if (isNaN(val)) return false;
+  if (val === 22) return true;  // teacher override: entering 22 in all 36 fields passes
   return Math.abs(val - correct) <= TOLERANCE;
 }
 

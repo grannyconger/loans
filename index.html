@@ -652,6 +652,31 @@ tr.group-row td {
   padding: 28px 20px;
   border-top: 2px solid var(--border);
 }
+.passphrase-row {
+  margin-bottom: 14px;
+}
+.passphrase-input {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  width: 220px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  transition: border-color 0.15s;
+}
+.passphrase-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.passphrase-input.unlocked {
+  border-color: var(--ok);
+  background: var(--ok-bg);
+}
 .submit-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
 
 .alert {
@@ -964,6 +989,11 @@ tr.group-row td {
     </div>
 
     <div class="submit-area">
+      <div class="passphrase-row">
+        <input type="text" id="passphrase-input" class="passphrase-input"
+          placeholder="Teacher override code"
+          oninput="checkPassphrase(this.value)" autocomplete="off" />
+      </div>
       <button class="btn btn-submit" id="btn-submit" disabled onclick="submitResults()">
         Submit All Results
       </button>
@@ -1003,7 +1033,7 @@ tr.group-row td {
 // TEACHER: replace with your Apps Script Web App URL
 // Deploy as: Execute as Me | Who has access: Anyone
 // ═══════════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/a/macros/greermiddlecollege.org/s/AKfycbx0FgENXzze0I6MzEGPTIOkzCjYF3LnTIzt8I5r3gxwqzyYxvdOQxj9f8dynH6Tkm4KVw/exec";
+const APPS_SCRIPT_URL = "YOUR_URL_HERE";
 
 // ═══════════════════════════════════════════════════════════
 // LENDER DATA — real Greenville, SC area rates (tildes stripped)
@@ -1192,10 +1222,11 @@ function shuffle(a) {
 // LOAN MATH — M = P[r(1+r)^n]/[(1+r)^n-1]
 // ═══════════════════════════════════════════════════════════
 function calcLoan(P, apr, n) {
-  const r      = apr / 100 / 12;
-  const factor = Math.pow(1 + r, n);
-  const pay    = P * (r * factor) / (factor - 1);
-  return { pay, interest: (pay * n) - P };
+  const r          = apr / 100 / 12;
+  const factor     = Math.pow(1 + r, n);
+  const pay        = P * (r * factor) / (factor - 1);
+  const roundedPay = rc(pay);
+  return { pay: roundedPay, interest: rc((roundedPay * n) - P) };
 }
 function rc(v) { return Math.round(v * 100) / 100; }
 
@@ -1361,11 +1392,46 @@ function refreshProgress() {
 }
 
 function refreshSubmit() {
-  const ready = app.sectionAllCorrect[0] && app.sectionAllCorrect[1];
-  document.getElementById("btn-submit").disabled    = !ready;
-  document.getElementById("submit-note").textContent = ready
-    ? "All answers correct! Ready to submit."
+  const ready    = app.sectionAllCorrect[0] && app.sectionAllCorrect[1];
+  const override = app.teacherOverride === true;
+  const unlocked = ready || override;
+  document.getElementById("btn-submit").disabled     = !unlocked;
+  document.getElementById("submit-note").textContent = unlocked
+    ? (override && !ready ? "Teacher override active. Ready to submit." : "All answers correct! Ready to submit.")
     : "All 36 answers must be correct before submitting.";
+}
+
+// Teacher passphrase override — fills all inputs with 22, marks both sections correct
+function checkPassphrase(val) {
+  const el = document.getElementById("passphrase-input");
+  if (val.trim() === "susthebus") {
+    app.teacherOverride = true;
+    el.classList.add("unlocked");
+
+    // Fill all 36 inputs with 22 and mark them correct visually
+    app.cars.forEach((car, ci) => {
+      car.offers.forEach((_, oi) => {
+        ["pay","int"].forEach(t => {
+          const input = document.getElementById(`c${ci}_o${oi}_${t}`);
+          if (input) { input.value = "22"; input.className = "student-input correct"; }
+          const hint = document.getElementById(`h_c${ci}_o${oi}_${t}`);
+          if (hint)  { hint.style.display = "none"; hint.textContent = ""; }
+        });
+      });
+      app.sectionValidated[ci]  = true;
+      app.sectionAllCorrect[ci] = true;
+      const s = document.getElementById(`car${ci+1}-status`);
+      s.className   = "section-status validated";
+      s.textContent = "\u2713 All Correct";
+    });
+
+    app.score = TOTAL_FIELDS;
+    refreshProgress();
+    refreshSubmit();
+  } else {
+    app.teacherOverride = false;
+    el.classList.remove("unlocked");
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
